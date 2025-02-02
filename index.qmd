@@ -1,0 +1,701 @@
+---
+title: "II8B3 - Investigación de Operaciones II"
+author:
+  - name: "Ing. Sebastián Blandón Londoño"
+    orcid: 0000-0002-0513-3860
+    url: https://www.linkedin.com/in/sebastian-blandon/
+    email: "s.blandon@utp.edu.co"
+    affiliation: "Universidad Tecnológica de Pereira"
+format:
+  revealjs:
+    auto-stretch: true
+    fig-align: center
+    scrollable: true
+    controls: true
+    margin: 0.14
+    self-contained: false
+    chalkboard: false
+    theme: [simple, styles.scss]
+    wrap: auto
+    progress: true
+    toc: false
+    toc-depth: 5
+    logo: logo_utp.png
+    footer: "Investigación de Operaciones II | Facultad de Ciencias Empresariales"
+    menu:
+      numbers: false
+    slide-level: 4
+    fig-cap-location: bottom
+    show-slide-number: speaker
+    touch: true
+    incremental: true
+    preview-links: auto
+    link-external-newwindow: true
+    hide-inactive-cursor: true
+    hide-cursor-time: 1500
+    slide-tone: false
+    pointer:
+      color: 'red'
+      key: 'q'
+      pointerSize: 32
+      alwaysVisible: false
+    confetti:
+      particleCount: 150
+      angle: 90
+      spread: 360
+      startVelocity: 25
+      gravity: 0.65
+      drift: 0
+      ticks: 400
+      colors: ["#0366fc", "#f54281", "#1fd14f"]
+      scalar: 0.7
+    spotlight:
+      toggleSpotlightOnMouseDown: false
+      spotlightOnKeyPressAndHold: 18
+      useAsPointer: false
+filters:
+  - code-fullscreen
+  - lightbox
+revealjs-plugins:
+  - pointer
+  - confetti
+  - embedpdf
+title-slide-attributes: 
+  data-footer: "Ingeniería Industrial | Facultad de Ciencias Empresariales"
+include-after-body: add-custom-footer.html
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r include=FALSE}
+# Carga de paquetes
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+
+# Introducción
+
+### ¿Para qué sirve este curso?
+
+-   Identificar la importancia del uso de modelos matemáticos de optimización para la solución de problemas de ingeniería.
+-   Determinar y analizar modelos matemáticos que permitan resolver problemas de ingeniería.
+-   Implementar estrategias de solución en modelos de gran magnitud.
+
+## Contenido
+
+![](0_Figures/0_ContenidoIO2.png)
+
+
+## Contenido
+{{< pdf /0_Resources/II8B3_Investigacion_de_Operaciones_II.pdf width=100% height=620 >}}
+
+## Evaluación
+
+::: columns
+::: {.column width="25%"}
+**Módulo I (30%)**
+
+\- Evaluación continua (15%)
+
+\- Parcial I (15%)
+:::
+
+::: {.column width="25%"}
+**Módulo II (20%)**
+
+\- Evaluación continua (10%)
+
+\- Parcial II (10%)
+:::
+
+::: {.column width="25%"}
+**Módulo III (20%)**
+
+\- Evaluación continua (10%)
+
+\- Parcial III (10%)
+:::
+
+::: {.column width="25%"}
+**Módulo IV (30%)**
+
+\- Evaluación continua (10%)
+
+\- Parcial final (20%)
+:::
+:::
+
+## Recursos guía
+
+::: {.nonincremental .small-text}
+-   Fourer, R., Gay, D. M., & Kernighan, B. (2003). AMPL A Modeling Language for Mathematical Programming. Second edition.
+-   Gallego, Escobar (2007). Programación lineal entera. Editorial Universidad Tecnológica de Pereira.
+-   Hillier, F. S., & Liberman, G. J. (2010). Introduction to Operation Research. Edit. Mc. Graw. Hill. 9th Edition.
+-   Izar (2018). Investigación de Operaciones. Segunda Edición. Editorial Trillas.
+-   Muñoz Guevara (2025). Cursos de Producción I, Producción II y Diseño de Plantas.
+-   Nahmias (2015). Production and Operations Analysis (7th ed.).
+-   Rendón, R. A. G., Zuluaga, A. E., & Ocampo, E. M. T. (2007). Programación lineal y flujo de redes. Editorial Universidad Tecnológica de Pereira.
+:::
+
+## Software
+
+::: columns
+::: {.column width="33%"}
+![](0_Figures/0_Logo_Excel.jpeg)
+:::
+
+::: {.column width="33%"}
+![](0_Figures/0_Logo_AMPL.png)
+:::
+
+
+::: {.column width="34%"}
+![](0_Figures/0_Logo_Python.png)
+:::
+:::
+
+## Presentación
+
+::: notes
+Mencionar los acuerdos de clase: - No responder a no ser que le sea
+consultado directa o abiertamente.
+:::
+
+## Repaso de Investigación de Operaciones
+
+### ¿Qué es la investigación de operaciones?
+
+La investigación de operaciones es la rama de las matemáticas que aporta
+herramientas para la toma de decisiones, específicamente problemas de
+asignación de recursos escasos. Esto a su vez, buscando la eficiencia y
+eficacia en el uso de dichos recursos.
+
+### Metodología para abordar problemas
+
+![](0_Figures/0_MetodologiaModelamiento.png){fig-cap="Adaptado de Toro Ocampo (2024)"}
+Adaptado de Toro Ocampo (2024)
+
+### Un ejemplo básico...
+
+::: r-fit-text
+Un expendio naturista prepara sus alimentos y los vende al público
+basándose en tres materias primas, cuyos contenidos se presentan
+enseguida:
+
+```{r}
+titulos <- c("Materia prima", "Costo $/kg", "Azúcares %", "Grasas %", "Proteínas %", "Inertes %")
+X1 <- c("A", "B", "C")
+X2 <- c(2.35, 2, 1.7)
+X3 <- c(12, 10, 8)
+X4 <- c(10, 10, 6)
+X5 <- c(60, 50, 44)
+X6 <- c(18, 30, 42)
+
+df <- as_tibble(cbind(X1, X2, X3, X4, X5, X6))
+colnames(df) <- titulos
+df %>%
+    kbl(align = "c") %>%
+    kable_material(c("striped", "hover")) %>%
+    row_spec(1:nrow(df), extra_css = "text-align: center; vertical-align: middle;")
+```
+
+¿Cuánto deberían mezclar de cada una de las tres si se desea minimizar el costo para preparar 1kg de alimento, cuyo contenido de azúcar no sea menor a 10%, su contenido de grasa no mayor a 9.5% y su contenido de proteínas no menor de 52%?
+:::
+
+#### Notación expandida
+
+::: r-fit-text
+$\begin{align*}
+\text{min } Z(X) &= 2.35X_{A} + 2X_{B} + 1.7X_{C} \\
+\\
+\text{s.a:} \\
+0.12X_{A} + 0.10X_{B} + 0.08X_{C} &\geq 0.1 ~\text{(Contenido de azúcar)} \\
+0.1X_{A} + 0.1X_{B} + 0.06X_{C} &\leq 0.095  ~\text{(Contenido de grasa)} \\
+0.6X_{A} + 0.5X_{B} + 0.44X_{C} &\geq 0.52  ~\text{(Contenido de proteínas)} \\
+X_{A} + X_{B} + X_{C} &= 1 ~\text{(Cantidad requerida)} \\
+X_{A}, X_{B}, X_{C} &\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{A} &= \text{Cantidad a usar de la materia prima A} \\
+X_{B} &= \text{Cantidad a usar de la materia prima B} \\
+X_{C} &= \text{Cantidad a usar de la materia prima C}
+\end{align*}$
+:::
+
+#### Notación compacta
+
+::: smaller-text
+$\begin{align*}
+\text{min } Z(X) &= \sum_{i \in N} Costo_{i} \ast X_{i} \\
+\\
+\text{s.a:} \\
+\sum_{i \in N}{} Azucar_{i} \ast X_{i}  &\geq minimo_{Azucar} ~\text{(Contenido de azúcar)} \\
+\sum_{i \in N}{} Grasa_{i} \ast X_{i}  &\leq maximo_{Grasa}  ~\text{(Contenido de grasa)} \\
+\sum_{i \in N}{} Proteinas_{i} \ast X_{i}  &\geq minimo_{Proteinas}  ~\text{(Contenido de proteínas)} \\
+\sum_{i \in N}{} X_{i}  &= 1 ~\text{(Cantidad requerida)} \\
+X_{i} &\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{i} &= \text{Cantidad a usar de la materia prima i} \\
+N &= \{A, B, C\}
+\end{align*}$
+:::
+
+### Software de optimización {.stretch}
+
+::: columns
+::: {.column width="33%"}
+![](0_Figures/0_Logo_AMPL.png){height="200"}
+![](0_Figures/0_Logo_GAMS.png)
+![](0_Figures/0_Logo_Python.png){height="200"}
+:::
+
+::: {.column width="33%"}
+![](0_Figures/0_Logo_Matlab.png){height="200"}
+![](0_Figures/0_Logo_Lingo.png){height="150"}
+![](0_Figures/0_Logo_R.png){height="150"}
+:::
+
+::: {.column width="34%"}
+![](0_Figures/0_Logo_Octave.png){height="200"}
+![](0_Figures/0_LogoIBMCplex.png){height="200"}
+
+:::
+:::
+
+### Software de optimización
+
+::: columns
+::: {.column width=50%}
+![](0_Figures/0_OptimizationSoftware1.png)
+:::
+
+::: {.column width=50%}
+![](0_Figures/0_OptimizationSoftware2.png)
+:::
+:::
+
+
+## Elementos de AMPL
+
+- Conjuntos
+- Parámetros
+- Variables
+- Función objetivo
+- Restricciones
+- Datos
+- Parámetros del solver
+
+### Esquema del archivo mod - Notación expandida
+
+```{.python}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# Variables
+
+# Funcion objetivo
+
+# Restricciones
+
+# Opciones del solver
+```
+
+
+### Archivo mod - Notación expandida
+
+```{.python code-line-numbers="1|2|9,10|4,5|4,6|4,7|12-14|12,16,17|12,19,20|12,22,23|25,26|25,27|25,28"}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# Variables
+var X_A >=0; # Cantidad de la materia prima A
+var X_B >=0; # Cantidad de la materia prima B
+var X_C >=0; # Cantidad de la materia prima C
+
+# Funcion objetivo
+minimize Z: 2.35*X_A + 2*X_B + 1.7*X_C;
+
+# Restricciones
+s.t. Contenido_Azucar:
+  0.12*X_A + 0.1*X_B + 0.08*X_C >= 0.1;
+  
+s.t. Contenido_Grasa:
+  0.1*X_A + 0.1*X_B + 0.06*X_C <= 0.095;
+  
+s.t. Contenido_Proteinas:
+  0.6*X_A + 0.5*X_B + 0.44*X_C >= 0.52;
+  
+s.t. Cantidad_Requerida:
+  X_A + X_B + X_C = 1;
+
+# Opciones del solver
+option solver highs;
+solve;
+display Z, X_A, X_B, X_C;
+```
+
+
+### Esquema del archivo mod - Notación compacta
+
+```{.python}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# Conjuntos
+
+# Parametros
+
+# Variables
+
+# Funcion objetivo
+
+# Restricciones
+
+# Datos
+
+# Opciones del solver
+```
+
+### Archivo mod - Notación compacta
+
+```{.python code-line-numbers="1|2|19-21|4,5|7,8|16,17|23-25|7,9,10|23,27,28|7,11,12|23,30,31|7,13,14|23,33,34|36,37|39,40|39,41|39,42|39,43"}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# Conjuntos
+set N; # Conjunto de materias primas
+
+# Parametros
+param Costo{N} >=0; # Costo de cada materia prima
+param Azucar{N} >=0; # Aporte de azucar de cada mp
+param minimo_azucar >=0;
+param Grasa{N} >=0; # Aporte de grasa de cada mp
+param maximo_grasa >=0;
+param Proteinas{N} >=0; # Aporte de proteinas de cada mp
+param minimo_proteinas >=0;
+
+# Variables
+var X{N} >=0; # Cantidad a usar de cada materia prima
+
+# Funcion objetivo
+maximize Z:
+  sum{i in N} Costo[i]*X[i];
+
+# Restricciones
+s.t. Contenido_Azucar:
+  sum{i in N} Azucar[i]*X[i] >= minimo_azucar;
+
+s.t. Contenido_Grasa:
+  sum{i in N} Grasa[i]*X[i] <= maximo_grasa;
+  
+s.t. Contenido_Proteinas:
+  sum{i in N} Proteinas[i]*X[i] >= minimo_proteinas;
+  
+s.t. Cantidad_Requerida:
+  sum{i in N} X[i] = 1;
+
+# Datos
+data AMPL_ejemplo1.dat; # Indica de dónde extraer los datos
+
+# Opciones del solver
+option solver highs;
+expand; # Expande el modelo, sirve para validar
+solve;
+display Z, X;
+```
+
+### Archivo dat - Notación compacta
+
+```{.python code-line-numbers="1,2|4-8|4,10-13|4,15-18|20-23|25-27"}
+# Conjuntos
+set N:= A B C;
+
+# Parametros
+param Costo:=
+A 2.35
+B 2
+C 1.7;
+
+param Azucar:=
+A 0.12
+B 0.10
+C 0.08;
+
+param Grasa:=
+A 0.1
+B 0.1
+C 0.06;
+
+param Proteinas:=
+A 0.6
+B 0.5
+C 0.44;
+
+param minimo_azucar:= 0.1;
+param maximo_grasa:= 0.095;
+param minimo_proteinas:= 0.52;
+```
+
+### Archivo dat (Alternativa) - Notación compacta
+
+```{.python code-line-numbers="1,2|4-10|4,12-14"}
+# Conjuntos
+set N:= A B C;
+
+# Parametros
+param:
+	Costo	Azucar	 Grasa	Proteinas:=
+A	2.35  	0.12	  0.10	  0.60
+B	2.0   	0.10   	0.10    0.50
+C	1.7   	0.08   	0.06    0.44
+;
+
+param minimo_azucar:= 0.1;
+param maximo_grasa:= 0.095;
+param minimo_proteinas:= 0.52;
+```
+
+### Solución
+::: columns
+::: {.column width="50%"}
+**Notación expandida**
+![](0_Figures/1_AMPL_Ejemplo1SolExpandido.png)
+:::
+
+:::{.column width="50%"}
+**Notación compacta**
+![](0_Figures/1_AMPL_Ejemplo1SolCompacto.png)
+:::
+:::
+
+### Un ejemplo un poco más complejo... {.even-smaller-text}
+
+En preparación para la temporada invernal, una compañía fabricante de ropa está manufacturando abrigos de piel con capucha y chamarras con relleno de plumas de ganso, pantalones con aislamiento y guantes. Todos los productos se elaboran en cuatro departamentos diferentes: corte, aislamiento, costura y empaque. 
+
+La compañía recibió pedidos en firme de sus productos, el contrato estipula una penalización por los artículos no surtidos. Elabore un plan de producción óptimo para la compañía, con base en los siguientes datos:
+
+```{r}
+titulos <- c("Departamento", "Abrigos", "Chamarras", "Pantalones", "Guantes", "Capacidad (hr)")
+X1 <- c("Corte", "Aislamiento", "Costura", "Empaque", "Demanda", "Utilidad ($/uni)", "Penalización por unidad ($/uni)")
+X2 <- c(0.30,0.25,0.45,0.15,800,30,15)
+X3 <- c(0.30,0.35,0.50,0.15,750,40,20)
+X4 <- c(0.25,0.30,0.40,0.10,600,20,10)
+X5 <- c(0.15,0.10,0.22,0.05,500,10,8)
+X6 <- c(1000,500,302,700,"-","-","-")
+
+df <- as_tibble(cbind(X1,X2,X3,X4,X5,X6))
+colnames(df) <- titulos
+df %>% 
+  kbl(align = "c") %>% 
+  kable_material(c("striped", "hover")) %>% 
+  row_spec(1:nrow(df), extra_css = "text-align: center; vertical-align: middle;") %>% 
+  add_header_above(c(" "=1, "Tiempo requerido por área (hr)"=4," "=1)) %>% 
+  scroll_box(width = "100%", height = "400px")
+```
+
+¿Cuántas unidades se deben producir de cada producto para maximizar la utilidad?
+
+
+#### Notación expandida
+
+::: r-fit-text
+$\begin{align*}
+\text{max } Z(X) &= 30X_{1} + 40X_{2} + 20X_{3} + 10X_{4} \\ 
+&\text{...} - 15\max\{800-X_{1},0\} \\
+&\text{...} - 20\max\{750-X_{2},0\} \\
+&\text{...} - 10\max\{600-X_{3},0\} \\
+&\text{...} - 8\max\{500-X_{4},0\} \\
+\text{s.a:} \\
+0.3X_{1} + 0.3X_{2} +  0.25X_{3} + 0.15X_{4} &\leq 1000 ~\text{(Corte)} \\
+0.25X_{1} + 0.35X_{2} + 0.3X_{3} + 0.1X_{4} &\leq 500  ~\text{(Aislamiento)} \\
+0.45X_{1} + 0.5X_{2} + 0.4X_{3} + 0.22X_{4} &\leq 302  ~\text{(Costura)} \\
+0.15X_{1} + 0.15X_{2} + 0.1X_{3} + 0.05X_{4} &\leq 700 ~\text{(Empaque)} \\
+X_{1} &\leq 800 ~\text{(Demanda de abrigos)} \\
+X_{2} &\leq 750 ~\text{(Demanda de chamarras)} \\
+X_{3} &\leq 600 ~\text{(Demanda de pantalones)} \\
+X_{4} &\leq 500 ~\text{(Demanda de guantes)} \\
+X_{1}, X_{2}, X_{3}, X_{4} &\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{1} &= \text{Cantidad a fabricar de abrigos} \\
+X_{2} &= \text{Cantidad a fabricar de chamarras} \\
+X_{3} &= \text{Cantidad a fabricar de pantalones} \\
+X_{4} &= \text{Cantidad a fabricar de guantes}
+\end{align*}$
+:::
+
+#### Notación compacta
+
+::: smaller-text
+$\begin{align*}
+\text{max } Z(X) &= \sum_{i = 1}^{M} (Utilidad_{i} \ast X_{i}  \\ 
+&\text{...} - Penalidad_{i} \ast \max\{Demanda_{i}-X_{i},0\}) \\
+\text{s.a:} \\
+\sum_{i = 1}^{M} Corte_{i} \ast X_{i} &\leq TiempoDisponible_{Corte} ~\text{(Corte)} \\
+\sum_{i = 1}^{M} Aislamiento_{i} \ast X_{i} &\leq TiempoDisponible_{Aislamiento} ~\text{(Aislamiento)} \\
+\sum_{i = 1}^{M} Costura_{i} \ast X_{i} &\leq TiempoDisponible_{Costura} ~\text{(Costura)} \\
+\sum_{i = 1}^{M} Empaque_{i} \ast X_{i} &\leq TiempoDisponible_{Empaque} ~\text{(Empaque)} \\
+X_{i} &\leq Demanda_{i} ~\forall ~i \in M ~\text{(Demanda de i)} \\
+X_{i} &\geq 0 ~\forall ~i \in M ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{i} &= \text{Cantidad a fabricar del producto i} \\
+M &= \text{Conjunto de productos}
+\end{align*}$
+:::
+
+
+#### Notación compacta
+
+::: small-text
+$\begin{align*}
+\text{max } Z(X) &= \sum_{i = 1}^{M} (Utilidad_{i} \ast X_{i}  \\ 
+&\text{...} - Penalidad_{i} \ast \max\{Demanda_{i}-X_{i},0\}) \\
+\text{s.a:} \\
+\sum_{i = 1}^{M} Tiempo_{i,j} \ast X_{i} &\leq TiempoDisponible_{j} ~\forall ~j \in \text{Area} \\
+X_{i} &\leq Demanda_{i} ~\forall ~i \in Productos \\
+X_{i} &\geq 0 ~\forall ~i \in Productos \\
+\\
+\text{Donde:} \\
+X_{i} &= \text{Cantidad a fabricar del producto i} \\
+M &= \text{Cantidad de productos}
+\end{align*}$
+:::
+
+### Archivo mod - Notación compacta
+
+```{.python code-line-numbers="1,2|19-21|4-6|9,10|9,11|9,12|16,17|23-26|4,7|9,13|9,14|28-30|32,33|35,36|35,37|35,38|35,39"}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# Conjuntos
+param M integer >=0; # Cantidad de productos
+set Productos:= 1..M; # Conjunto de productos
+set Areas; # Conjuntos de areas de produccion
+
+# Parametros
+param Utilidad{Productos} >=0; # Utilidad unitaria por producto
+param Penalidad{Productos} >=0; # Penalidad unitaria por demanda no cubierta
+param Demanda{Productos} >=0; # Demanda por tipo de producto
+param TiempoRequerido{Productos, Areas} >=0; # Tiempo requerido por el producto i en el area j
+param TiempoDisponible{Areas} >=0; # Tiempo disponible  
+
+# Variables
+var X{Productos} integer >=0; # Cantidad a fabricar del producto i
+
+# Funcion objetivo
+maximize Z:
+	sum{i in Productos} (Utilidad[i]*X[i] - Penalidad[i]*max(Demanda[i]-X[i], 0));
+
+# Restricciones
+s.t. Tiempo{(i,j) in {Productos,Areas}}:
+	TiempoRequerido[i,j]*X[i] <= TiempoDisponible[j]
+;
+
+s.t. Demandas{i in Productos}:
+	X[i] <= Demanda[i]
+;
+
+# Datos
+data 0_AMPL_Ejemplo2Compacto.dat; # Indica de donde extraer los datos
+
+# Opciones del solver
+option solver highs;
+expand;
+solve;
+display Z, X;
+```
+
+### Archivo dat - Notación compacta
+
+```{.python code-line-numbers="1|3|5-11|13-30|32-37"}
+param M:= 4; # Cantidad de productos
+
+set Areas:= Corte Aislamiento Costura Empaque;
+
+param:
+	Utilidad	Penalidad	Demanda:=
+1		30			15			800
+2		40			20			750
+3		20			10			600
+4		10			8			500
+;
+
+param TiempoRequerido:=
+1 Corte 0.3
+1 Aislamiento 0.25 
+1 Costura 0.45
+1 Empaque 0.15
+2 Corte 0.3
+2 Aislamiento 0.35 
+2 Costura 0.5
+2 Empaque 0.15
+3 Corte 0.25
+3 Aislamiento 0.3 
+3 Costura 0.4
+3 Empaque 0.1
+4 Corte 0.15
+4 Aislamiento 0.1 
+4 Costura 0.22
+4 Empaque 0.05
+;
+
+param TiempoDisponible:=
+Corte 1000
+Aislamiento 500 
+Costura 302
+Empaque 700
+;
+
+
+```
+
+### Archivo dat (Alternativa) - Notación compacta
+
+```{.python code-line-numbers="1|3|5-11|13-19|21-26"}
+param M:= 4; # Cantidad de productos
+
+set Areas:= Corte Aislamiento Costura Empaque;
+
+param:
+	Utilidad	Penalidad	Demanda:=
+1		30			15			800
+2		40			20			750
+3		20			10			600
+4		10			8			500
+;
+
+param TiempoRequerido:
+	Corte	Aislamiento	Costura	Empaque:=
+1	0.3			0.25	0.45	0.15
+2	0.3			0.35	0.5		0.15
+3	0.25		0.3		0.4		0.1
+4	0.15		0.1		0.22	0.05
+;
+
+param TiempoDisponible:=
+Corte 1000
+Aislamiento 500 
+Costura 302
+Empaque 700
+;
+
+
+```
+
+
+## Solución
+![](0_Figures/1_AMPL_Ejemplo2SolCompacto.png)
+
+# Módulo I - Producción
+::: nonincremental
+- Generalidades
+- Sistemas de producción
+- Planeación de la capacidad de producción
+- Programación CPM, PERT y LPU
+:::
+

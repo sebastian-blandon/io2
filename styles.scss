@@ -1,0 +1,46 @@
+/*-- scss:rules --*/
+.reveal .footer {
+display: block;
+color: white;
+background-color: #003459;
+position: fixed;
+bottom: 0px;
+left: 0px;
+width: 100%;
+padding: 2px;
+margin: 0px auto;
+text-align: center;
+font-size: 18px;
+z-index: -1 !important;
+}
+
+
+.reveal .slides {
+  margin-left: 0% !important; /* Ajusta este valor según sea necesario */
+  margin-right: 0% !important; /* Ajusta este valor según sea necesario */
+}
+
+.reveal .slide-menu-button {
+display: true !important;
+}
+
+
+
+.container{
+  display: grid;
+  grid-auto-flow: column;
+}
+
+
+.small-text {
+  font-size: 30px;
+}
+
+.smaller-text {
+  font-size: 23px;
+}
+
+.even-smaller-text {
+  font-size: 20px;
+}
+
