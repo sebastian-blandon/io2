@@ -166,6 +166,9 @@ consultado directa o abiertamente.
 
 ## Repaso de Investigación de Operaciones
 
+![](0_Figures/0_Mesas_Sillas.png)
+Tomado de GEIO
+
 ### ¿Qué es la investigación de operaciones?
 
 La investigación de operaciones es la rama de las matemáticas que aporta
