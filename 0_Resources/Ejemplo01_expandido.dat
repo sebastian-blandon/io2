@@ -1,0 +1,20 @@
+# conjuntos
+set Productos:= Mesas Sillas;
+
+# parametros
+param Utilidad:= 
+Mesas 16 
+Sillas 13;
+
+param FG:=
+Mesas 1
+Sillas 2;
+
+
+param TFG:= 17;
+
+param FP:=
+Mesas 3
+Sillas 2;
+
+param TFP:= 18;
