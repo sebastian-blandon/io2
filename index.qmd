@@ -9,7 +9,6 @@ author:
 format:
   revealjs:
     auto-stretch: true
-    fig-align: center
     scrollable: true
     controls: true
     margin: 0.14
@@ -25,7 +24,6 @@ format:
     menu:
       numbers: false
     slide-level: 4
-    fig-cap-location: bottom
     show-slide-number: speaker
     touch: true
     incremental: true
@@ -90,7 +88,7 @@ library(kableExtra)
 
 
 ## Contenido
-{{< pdf /0_Resources/II8B3_Investigacion_de_Operaciones_II.pdf width=100% height=620 >}}
+{{< pdf /0_Resources/0_II8B3_Investigacion_de_Operaciones_II.pdf width=100% height=620 >}}
 
 ## Evaluación
 
@@ -164,19 +162,224 @@ Mencionar los acuerdos de clase: - No responder a no ser que le sea
 consultado directa o abiertamente.
 :::
 
-## Repaso de Investigación de Operaciones
 
-![](0_Figures/0_Mesas_Sillas.png)
-Tomado de GEIO
+# Módulo I - Programación lineal entera
 
-### ¿Qué es la investigación de operaciones?
+::: small-text
+::: nonincremental
+- Repaso de modelamiento matemático
+- Introducción al manejo de AMPL
+- Formulación del modelo entero
+- Método gráfico
+- Método del redondeo de la solución óptima de programación linea
+- Método de enumeración completa
+- Método de branch and bound (bifurcación y acotamiento)
+- Método de corte de Gomory
+:::
+:::
+
+
+## Repaso de modelamiento matemático y optimización con AMPL
+
+<img src="0_Figures/0_Mesas_Sillas.png" style="max-height: 60vh; width: auto; display: block; margin: auto;">
+Adaptado de GEIO
+
+## Modelos mesas y sillas
+### Notación expandida
+
+::: r-stretch
+$$\begin{align*}
+\text{max } Z(X1,X2) &= 16X_{1} + 13X_{2}\\ 
+\\
+\text{s.a:} \\
+X_{1} + 2X_{2} &\leq 17 ~\text{(Fichas máximas de 8 pines)} \\
+3X_{1} + 2X_{2} &\leq 18  ~\text{(Fichas máximas de 4 pines)} \\
+X_{1}, X_{2} &\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{1} &= \text{Cantidad a fabricar de mesas} \\
+X_{2} &= \text{Cantidad a fabricar de sillas} \\
+\end{align*}
+$$
+:::
+
+
+### Notación compacta
+
+::: small-text
+$$\begin{align*}
+\text{max } Z(X) &= \sum_{i \in Productos}^{} Utilidad_{i} * X_{i}\\ 
+\\
+\text{s.a:} \\
+\sum_{i \in Productos}^{} FG_{i} * X_{i} &\leq TFG ~\text{(Fichas máximas de 8 pines)} \\
+\sum_{i \in Productos}^{} FP_{i} * X_{i} &\leq TFP  ~\text{(Fichas máximas de 4 pines)} \\
+X_{i} &\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{i} &= \text{Cantidad a fabricar del producto i}
+\end{align*}
+$$
+:::
+
+### Notación aún más compacta
+
+::: small-text
+$$\begin{align*}
+\text{max } Z(X) &= \sum_{j \in Productos}^{} Utilidad_{j} * X_{j}\\ 
+\\
+\text{s.a:} \\
+\sum_{j \in Productos}^{} Fichas_{i,j} * X_{j} &\leq TF_{i} ~\forall ~i \in ~\text{Tipo_fichas} ~\text{(Fichas máximas)} \\
+X_{j} &\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{j} &= \text{Cantidad a fabricar del producto j}
+\end{align*}
+$$
+:::
+
+## Software de optimización {.stretch}
+
+::: columns
+::: {.column width="33%"}
+![](0_Figures/0_Logo_AMPL.png){height="200"}
+![](0_Figures/0_Logo_GAMS.png)
+![](0_Figures/0_Logo_Python.png){height="200"}
+:::
+
+::: {.column width="33%"}
+![](0_Figures/0_Logo_Matlab.png){height="200"}
+![](0_Figures/0_Logo_Lingo.png){height="150"}
+![](0_Figures/0_Logo_R.png){height="150"}
+:::
+
+::: {.column width="34%"}
+![](0_Figures/0_Logo_Octave.png){height="200"}
+![](0_Figures/0_LogoIBMCplex.png){height="200"}
+
+:::
+:::
+
+## Software de optimización
+
+::: columns
+::: {.column width=50%}
+![](0_Figures/0_OptimizationSoftware1.png)
+:::
+
+::: {.column width=50%}
+![](0_Figures/0_OptimizationSoftware2.png)
+:::
+:::
+
+
+## Elementos de AMPL en la notación expandida
+
+- Variables
+- Función objetivo
+- Restricciones
+- Parámetros del solver
+
+### Esquema del archivo mod - Notación expandida
+
+```{.python}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# Variables
+
+# Funcion objetivo
+
+# Restricciones
+
+# Opciones del solver
+```
+
+### Archivo mod - Notación expandida
+
+```{.python code-line-numbers="1|2|8,9|4,5,6|11|12|14,15|17,18,19,20"}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# variables
+var X1 >=0; # Cantidad de mesas
+var X2 >=0; # Cantidad de sillas
+
+# funcion objetivo
+maximize Ganancias: 16*X1+13*X2;
+
+# restricciones
+s.t. R1: X1+2*X2 <= 17; # Max fichas de 8 pines
+
+s.t. R2: 
+	3*X1+2*X2 <= 18; # Max fichas de 4 pines
+	
+# solver
+option solver highs;
+solve;
+display Ganancias, X1, X2;
+```
+
+## Elementos de AMPL en la notación compacta
+
+- Conjuntos
+- Parámetros
+- Variables
+- Función objetivo
+- Restricciones
+- Datos
+- Parámetros del solver
+
+### Esquema del archivo mod - Notación compacta
+
+```{.python}
+reset; # Elimina las variables, parametros y soluciones previas
+model; # Indica el inicio del modelo
+
+# Conjuntos
+
+# Parametros
+
+# Variables
+
+# Funcion objetivo
+
+# Restricciones
+
+# Datos
+
+# Opciones del solver
+```
+
+### Archivo mod - Notación compacta
+
+```{.python}
+reset;
+model;
+
+```
+
+### Archivo dat - Notación compacta
+
+```{.python}
+
+
+```
+
+### Archivo dat (Alternativa) - Notación compacta
+
+```{.python}
+
+
+```
+
+## ¿Qué es la investigación de operaciones?
 
 La investigación de operaciones es la rama de las matemáticas que aporta
 herramientas para la toma de decisiones, específicamente problemas de
 asignación de recursos escasos. Esto a su vez, buscando la eficiencia y
 eficacia en el uso de dichos recursos.
 
-### Metodología para abordar problemas
+## Metodología para abordar problemas
 
 ![](0_Figures/0_MetodologiaModelamiento.png){fig-cap="Adaptado de Toro Ocampo (2024)"}
 Adaptado de Toro Ocampo (2024)
@@ -211,7 +414,7 @@ df %>%
 #### Notación expandida
 
 ::: r-fit-text
-$\begin{align*}
+$$\begin{align*}
 \text{min } Z(X) &= 2.35X_{A} + 2X_{B} + 1.7X_{C} \\
 \\
 \text{s.a:} \\
@@ -225,13 +428,14 @@ X_{A}, X_{B}, X_{C} &\geq 0 ~\text{(No negatividad)} \\
 X_{A} &= \text{Cantidad a usar de la materia prima A} \\
 X_{B} &= \text{Cantidad a usar de la materia prima B} \\
 X_{C} &= \text{Cantidad a usar de la materia prima C}
-\end{align*}$
+\end{align*}
+$$
 :::
 
 #### Notación compacta
 
 ::: smaller-text
-$\begin{align*}
+$$\begin{align*}
 \text{min } Z(X) &= \sum_{i \in N} Costo_{i} \ast X_{i} \\
 \\
 \text{s.a:} \\
@@ -244,68 +448,10 @@ X_{i} &\geq 0 ~\text{(No negatividad)} \\
 \text{Donde:} \\
 X_{i} &= \text{Cantidad a usar de la materia prima i} \\
 N &= \{A, B, C\}
-\end{align*}$
+\end{align*}
+$$
 :::
 
-### Software de optimización {.stretch}
-
-::: columns
-::: {.column width="33%"}
-![](0_Figures/0_Logo_AMPL.png){height="200"}
-![](0_Figures/0_Logo_GAMS.png)
-![](0_Figures/0_Logo_Python.png){height="200"}
-:::
-
-::: {.column width="33%"}
-![](0_Figures/0_Logo_Matlab.png){height="200"}
-![](0_Figures/0_Logo_Lingo.png){height="150"}
-![](0_Figures/0_Logo_R.png){height="150"}
-:::
-
-::: {.column width="34%"}
-![](0_Figures/0_Logo_Octave.png){height="200"}
-![](0_Figures/0_LogoIBMCplex.png){height="200"}
-
-:::
-:::
-
-### Software de optimización
-
-::: columns
-::: {.column width=50%}
-![](0_Figures/0_OptimizationSoftware1.png)
-:::
-
-::: {.column width=50%}
-![](0_Figures/0_OptimizationSoftware2.png)
-:::
-:::
-
-
-## Elementos de AMPL
-
-- Conjuntos
-- Parámetros
-- Variables
-- Función objetivo
-- Restricciones
-- Datos
-- Parámetros del solver
-
-### Esquema del archivo mod - Notación expandida
-
-```{.python}
-reset; # Elimina las variables, parametros y soluciones previas
-model; # Indica el inicio del modelo
-
-# Variables
-
-# Funcion objetivo
-
-# Restricciones
-
-# Opciones del solver
-```
 
 
 ### Archivo mod - Notación expandida
@@ -476,7 +622,6 @@ param minimo_proteinas:= 0.52;
 :::
 
 ### Un ejemplo un poco más complejo... {.even-smaller-text}
-
 En preparación para la temporada invernal, una compañía fabricante de ropa está manufacturando abrigos de piel con capucha y chamarras con relleno de plumas de ganso, pantalones con aislamiento y guantes. Todos los productos se elaboran en cuatro departamentos diferentes: corte, aislamiento, costura y empaque. 
 
 La compañía recibió pedidos en firme de sus productos, el contrato estipula una penalización por los artículos no surtidos. Elabore un plan de producción óptimo para la compañía, con base en los siguientes datos:
@@ -694,11 +839,5 @@ Empaque 700
 ## Solución
 ![](0_Figures/1_AMPL_Ejemplo2SolCompacto.png)
 
-# Módulo I - Producción
-::: nonincremental
-- Generalidades
-- Sistemas de producción
-- Planeación de la capacidad de producción
-- Programación CPM, PERT y LPU
-:::
+
 

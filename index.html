@@ -244,7 +244,7 @@ gran magnitud.</li>
 
 <section id="contenido-1" class="title-slide slide level2 center">
 <h2>Contenido</h2>
-<p><object data="/0_Resources/II8B3_Investigacion_de_Operaciones_II.pdf" type="application/pdf" width="100%" height="620"><a href="/0_Resources/II8B3_Investigacion_de_Operaciones_II.pdf" download="">Download PDF file.</a></object></p>
+<p><object data="/0_Resources/0_II8B3_Investigacion_de_Operaciones_II.pdf" type="application/pdf" width="100%" height="620"><a href="/0_Resources/0_II8B3_Investigacion_de_Operaciones_II.pdf" download="">Download PDF file.</a></object></p>
 </section>
 
 <section id="evaluación" class="title-slide slide level2 center">
@@ -320,25 +320,225 @@ consultado directa o abiertamente.</p>
           display:block!important;
       }</style></aside>
 </section>
-
-<section id="repaso-de-investigación-de-operaciones" class="title-slide slide level2 center">
-<h2>Repaso de Investigación de Operaciones</h2>
-<p><img data-src="0_Figures/0_Mesas_Sillas.png"> Tomado de GEIO</p>
 </section>
-<section id="qué-es-la-investigación-de-operaciones" class="title-slide slide level3 center">
-<h3>¿Qué es la investigación de operaciones?</h3>
+<section>
+<section id="módulo-i---programación-lineal-entera" class="title-slide slide level1 center">
+<h1>Módulo I - Programación lineal entera</h1>
+<div class="small-text">
+<div>
+<ul>
+<li>Repaso de modelamiento matemático</li>
+<li>Introducción al manejo de AMPL</li>
+<li>Formulación del modelo entero</li>
+<li>Método gráfico</li>
+<li>Método del redondeo de la solución óptima de programación linea</li>
+<li>Método de enumeración completa</li>
+<li>Método de branch and bound (bifurcación y acotamiento)</li>
+<li>Método de corte de Gomory</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="repaso-de-modelamiento-matemático-y-optimización-con-ampl" class="title-slide slide level2 center">
+<h2>Repaso de modelamiento matemático y optimización con AMPL</h2>
+<p><img src="0_Figures/0_Mesas_Sillas.png" style="max-height: 60vh; width: auto; display: block; margin: auto;">
+Adaptado de GEIO</p>
+</section>
+
+<section id="modelos-mesas-y-sillas" class="title-slide slide level2 center">
+<h2>Modelos mesas y sillas</h2>
+
+</section>
+<section id="notación-expandida" class="title-slide slide level3 center">
+<h3>Notación expandida</h3>
+<div class="r-stretch">
+<p><span class="math display">\[\begin{align*}
+\text{max } Z(X1,X2) &amp;= 16X_{1} + 13X_{2}\\
+\\
+\text{s.a:} \\
+X_{1} + 2X_{2} &amp;\leq 17 ~\text{(Fichas máximas de 8 pines)} \\
+3X_{1} + 2X_{2} &amp;\leq 18  ~\text{(Fichas máximas de 4 pines)} \\
+X_{1}, X_{2} &amp;\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{1} &amp;= \text{Cantidad a fabricar de mesas} \\
+X_{2} &amp;= \text{Cantidad a fabricar de sillas} \\
+\end{align*}
+\]</span></p>
+</div>
+</section>
+
+<section id="notación-compacta" class="title-slide slide level3 center">
+<h3>Notación compacta</h3>
+<div class="small-text">
+<p><span class="math display">\[\begin{align*}
+\text{max } Z(X) &amp;= \sum_{i \in Productos}^{} Utilidad_{i} * X_{i}\\
+\\
+\text{s.a:} \\
+\sum_{i \in Productos}^{} FG_{i} * X_{i} &amp;\leq TFG ~\text{(Fichas
+máximas de 8 pines)} \\
+\sum_{i \in Productos}^{} FP_{i} * X_{i} &amp;\leq TFP  ~\text{(Fichas
+máximas de 4 pines)} \\
+X_{i} &amp;\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{i} &amp;= \text{Cantidad a fabricar del producto i}
+\end{align*}
+\]</span></p>
+</div>
+</section>
+
+<section id="notación-aún-más-compacta" class="title-slide slide level3 center">
+<h3>Notación aún más compacta</h3>
+<div class="small-text">
+<p><span class="math display">\[\begin{align*}
+\text{max } Z(X) &amp;= \sum_{j \in Productos}^{} Utilidad_{j} * X_{j}\\
+\\
+\text{s.a:} \\
+\sum_{j \in Productos}^{} Fichas_{i,j} * X_{j} &amp;\leq TF_{i} ~\forall
+~i \in ~\text{Tipo_fichas} ~\text{(Fichas máximas)} \\
+X_{j} &amp;\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{j} &amp;= \text{Cantidad a fabricar del producto j}
+\end{align*}
+\]</span></p>
+</div>
+</section>
+
+
+<section id="software-de-optimización" class="title-slide slide level2 stretch center">
+<h2>Software de optimización</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><img data-src="0_Figures/0_Logo_AMPL.png" height="200"> <img data-src="0_Figures/0_Logo_GAMS.png"> <img data-src="0_Figures/0_Logo_Python.png" height="200"></p>
+</div><div class="column" style="width:33%;">
+<p><img data-src="0_Figures/0_Logo_Matlab.png" height="200"> <img data-src="0_Figures/0_Logo_Lingo.png" height="150"> <img data-src="0_Figures/0_Logo_R.png" height="150"></p>
+</div><div class="column" style="width:34%;">
+<p><img data-src="0_Figures/0_Logo_Octave.png" height="200"> <img data-src="0_Figures/0_LogoIBMCplex.png" height="200"></p>
+</div></div>
+</section>
+
+<section id="software-de-optimización-1" class="title-slide slide level2 center">
+<h2>Software de optimización</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="0_Figures/0_OptimizationSoftware1.png"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="0_Figures/0_OptimizationSoftware2.png"></p>
+</div></div>
+</section>
+
+<section id="elementos-de-ampl-en-la-notación-expandida" class="title-slide slide level2 center">
+<h2>Elementos de AMPL en la notación expandida</h2>
+<ul>
+<li class="fragment">Variables</li>
+<li class="fragment">Función objetivo</li>
+<li class="fragment">Restricciones</li>
+<li class="fragment">Parámetros del solver</li>
+</ul>
+</section>
+<section id="esquema-del-archivo-mod---notación-expandida" class="title-slide slide level3 center">
+<h3>Esquema del archivo mod - Notación expandida</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
+<span id="cb1-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
+<span id="cb1-3"><a href=""></a></span>
+<span id="cb1-4"><a href=""></a><span class="co"># Variables</span></span>
+<span id="cb1-5"><a href=""></a></span>
+<span id="cb1-6"><a href=""></a><span class="co"># Funcion objetivo</span></span>
+<span id="cb1-7"><a href=""></a></span>
+<span id="cb1-8"><a href=""></a><span class="co"># Restricciones</span></span>
+<span id="cb1-9"><a href=""></a></span>
+<span id="cb1-10"><a href=""></a><span class="co"># Opciones del solver</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="archivo-mod---notación-expandida" class="title-slide slide level3 center">
+<h3>Archivo mod - Notación expandida</h3>
+<div class="sourceCode" id="cb2" data-code-line-numbers="1|2|8,9|4,5,6|11|12|14,15|17,18,19,20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
+<span id="cb2-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
+<span id="cb2-3"><a href=""></a></span>
+<span id="cb2-4"><a href=""></a><span class="co"># variables</span></span>
+<span id="cb2-5"><a href=""></a>var X1 <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de mesas</span></span>
+<span id="cb2-6"><a href=""></a>var X2 <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de sillas</span></span>
+<span id="cb2-7"><a href=""></a></span>
+<span id="cb2-8"><a href=""></a><span class="co"># funcion objetivo</span></span>
+<span id="cb2-9"><a href=""></a>maximize Ganancias: <span class="dv">16</span><span class="op">*</span>X1<span class="op">+</span><span class="dv">13</span><span class="op">*</span>X2<span class="op">;</span></span>
+<span id="cb2-10"><a href=""></a></span>
+<span id="cb2-11"><a href=""></a><span class="co"># restricciones</span></span>
+<span id="cb2-12"><a href=""></a>s.t. R1: X1<span class="op">+</span><span class="dv">2</span><span class="op">*</span>X2 <span class="op">&lt;=</span> <span class="dv">17</span><span class="op">;</span> <span class="co"># Max fichas de 8 pines</span></span>
+<span id="cb2-13"><a href=""></a></span>
+<span id="cb2-14"><a href=""></a>s.t. R2: </span>
+<span id="cb2-15"><a href=""></a>    <span class="dv">3</span><span class="op">*</span>X1<span class="op">+</span><span class="dv">2</span><span class="op">*</span>X2 <span class="op">&lt;=</span> <span class="dv">18</span><span class="op">;</span> <span class="co"># Max fichas de 4 pines</span></span>
+<span id="cb2-16"><a href=""></a>    </span>
+<span id="cb2-17"><a href=""></a><span class="co"># solver</span></span>
+<span id="cb2-18"><a href=""></a>option solver highs<span class="op">;</span></span>
+<span id="cb2-19"><a href=""></a>solve<span class="op">;</span></span>
+<span id="cb2-20"><a href=""></a>display Ganancias, X1, X2<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+
+<section id="elementos-de-ampl-en-la-notación-compacta" class="title-slide slide level2 center">
+<h2>Elementos de AMPL en la notación compacta</h2>
+<ul>
+<li class="fragment">Conjuntos</li>
+<li class="fragment">Parámetros</li>
+<li class="fragment">Variables</li>
+<li class="fragment">Función objetivo</li>
+<li class="fragment">Restricciones</li>
+<li class="fragment">Datos</li>
+<li class="fragment">Parámetros del solver</li>
+</ul>
+</section>
+<section id="esquema-del-archivo-mod---notación-compacta" class="title-slide slide level3 center">
+<h3>Esquema del archivo mod - Notación compacta</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
+<span id="cb3-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
+<span id="cb3-3"><a href=""></a></span>
+<span id="cb3-4"><a href=""></a><span class="co"># Conjuntos</span></span>
+<span id="cb3-5"><a href=""></a></span>
+<span id="cb3-6"><a href=""></a><span class="co"># Parametros</span></span>
+<span id="cb3-7"><a href=""></a></span>
+<span id="cb3-8"><a href=""></a><span class="co"># Variables</span></span>
+<span id="cb3-9"><a href=""></a></span>
+<span id="cb3-10"><a href=""></a><span class="co"># Funcion objetivo</span></span>
+<span id="cb3-11"><a href=""></a></span>
+<span id="cb3-12"><a href=""></a><span class="co"># Restricciones</span></span>
+<span id="cb3-13"><a href=""></a></span>
+<span id="cb3-14"><a href=""></a><span class="co"># Datos</span></span>
+<span id="cb3-15"><a href=""></a></span>
+<span id="cb3-16"><a href=""></a><span class="co"># Opciones del solver</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="archivo-mod---notación-compacta" class="title-slide slide level3 center">
+<h3>Archivo mod - Notación compacta</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>reset<span class="op">;</span></span>
+<span id="cb4-2"><a href=""></a>model<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="archivo-dat---notación-compacta" class="title-slide slide level3 center">
+<h3>Archivo dat - Notación compacta</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+<section id="archivo-dat-alternativa---notación-compacta" class="title-slide slide level3 center">
+<h3>Archivo dat (Alternativa) - Notación compacta</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+
+
+<section id="qué-es-la-investigación-de-operaciones" class="title-slide slide level2 center">
+<h2>¿Qué es la investigación de operaciones?</h2>
 <p>La investigación de operaciones es la rama de las matemáticas que
 aporta herramientas para la toma de decisiones, específicamente
 problemas de asignación de recursos escasos. Esto a su vez, buscando la
 eficiencia y eficacia en el uso de dichos recursos.</p>
 </section>
 
-<section id="metodología-para-abordar-problemas" class="title-slide slide level3 center">
-<h3>Metodología para abordar problemas</h3>
+<section id="metodología-para-abordar-problemas" class="title-slide slide level2 center">
+<h2>Metodología para abordar problemas</h2>
 <p><img data-src="0_Figures/0_MetodologiaModelamiento.png" data-fig-cap="Adaptado de Toro Ocampo (2024)"> Adaptado de Toro Ocampo
 (2024)</p>
 </section>
-
 <section id="un-ejemplo-básico" class="title-slide slide level3 center">
 <h3>Un ejemplo básico…</h3>
 <div class="r-fit-text">
@@ -399,10 +599,10 @@ azúcar no sea menor a 10%, su contenido de grasa no mayor a 9.5% y su
 contenido de proteínas no menor de 52%?</p>
 </div>
 </section>
-<section id="notación-expandida" class="slide level4">
+<section id="notación-expandida-1" class="slide level4">
 <h4>Notación expandida</h4>
 <div class="r-fit-text">
-<p><span class="math inline">\(\begin{align*}
+<p><span class="math display">\[\begin{align*}
 \text{min } Z(X) &amp;= 2.35X_{A} + 2X_{B} + 1.7X_{C} \\
 \\
 \text{s.a:} \\
@@ -419,13 +619,14 @@ X_{A}, X_{B}, X_{C} &amp;\geq 0 ~\text{(No negatividad)} \\
 X_{A} &amp;= \text{Cantidad a usar de la materia prima A} \\
 X_{B} &amp;= \text{Cantidad a usar de la materia prima B} \\
 X_{C} &amp;= \text{Cantidad a usar de la materia prima C}
-\end{align*}\)</span></p>
+\end{align*}
+\]</span></p>
 </div>
 </section>
-<section id="notación-compacta" class="slide level4">
+<section id="notación-compacta-1" class="slide level4">
 <h4>Notación compacta</h4>
 <div class="smaller-text">
-<p><span class="math inline">\(\begin{align*}
+<p><span class="math display">\[\begin{align*}
 \text{min } Z(X) &amp;= \sum_{i \in N} Costo_{i} \ast X_{i} \\
 \\
 \text{s.a:} \\
@@ -441,205 +642,157 @@ X_{i} &amp;\geq 0 ~\text{(No negatividad)} \\
 \text{Donde:} \\
 X_{i} &amp;= \text{Cantidad a usar de la materia prima i} \\
 N &amp;= \{A, B, C\}
-\end{align*}\)</span></p>
+\end{align*}
+\]</span></p>
 </div>
 </section>
 
-<section id="software-de-optimización" class="title-slide slide level3 stretch center">
-<h3>Software de optimización</h3>
-<div class="columns">
-<div class="column" style="width:33%;">
-<p><img data-src="0_Figures/0_Logo_AMPL.png" height="200"> <img data-src="0_Figures/0_Logo_GAMS.png"> <img data-src="0_Figures/0_Logo_Python.png" height="200"></p>
-</div><div class="column" style="width:33%;">
-<p><img data-src="0_Figures/0_Logo_Matlab.png" height="200"> <img data-src="0_Figures/0_Logo_Lingo.png" height="150"> <img data-src="0_Figures/0_Logo_R.png" height="150"></p>
-</div><div class="column" style="width:34%;">
-<p><img data-src="0_Figures/0_Logo_Octave.png" height="200"> <img data-src="0_Figures/0_LogoIBMCplex.png" height="200"></p>
-</div></div>
-</section>
-
-<section id="software-de-optimización-1" class="title-slide slide level3 center">
-<h3>Software de optimización</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img data-src="0_Figures/0_OptimizationSoftware1.png"></p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="0_Figures/0_OptimizationSoftware2.png"></p>
-</div></div>
-</section>
-
-
-<section id="elementos-de-ampl" class="title-slide slide level2 center">
-<h2>Elementos de AMPL</h2>
-<ul>
-<li class="fragment">Conjuntos</li>
-<li class="fragment">Parámetros</li>
-<li class="fragment">Variables</li>
-<li class="fragment">Función objetivo</li>
-<li class="fragment">Restricciones</li>
-<li class="fragment">Datos</li>
-<li class="fragment">Parámetros del solver</li>
-</ul>
-</section>
-<section id="esquema-del-archivo-mod---notación-expandida" class="title-slide slide level3 center">
-<h3>Esquema del archivo mod - Notación expandida</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
-<span id="cb1-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
-<span id="cb1-3"><a href=""></a></span>
-<span id="cb1-4"><a href=""></a><span class="co"># Variables</span></span>
-<span id="cb1-5"><a href=""></a></span>
-<span id="cb1-6"><a href=""></a><span class="co"># Funcion objetivo</span></span>
-<span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a><span class="co"># Restricciones</span></span>
-<span id="cb1-9"><a href=""></a></span>
-<span id="cb1-10"><a href=""></a><span class="co"># Opciones del solver</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-
-<section id="archivo-mod---notación-expandida" class="title-slide slide level3 center">
+<section id="archivo-mod---notación-expandida-1" class="title-slide slide level3 center">
 <h3>Archivo mod - Notación expandida</h3>
-<div class="sourceCode" id="cb2" data-code-line-numbers="1|2|9,10|4,5|4,6|4,7|12-14|12,16,17|12,19,20|12,22,23|25,26|25,27|25,28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
-<span id="cb2-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
-<span id="cb2-3"><a href=""></a></span>
-<span id="cb2-4"><a href=""></a><span class="co"># Variables</span></span>
-<span id="cb2-5"><a href=""></a>var X_A <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de la materia prima A</span></span>
-<span id="cb2-6"><a href=""></a>var X_B <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de la materia prima B</span></span>
-<span id="cb2-7"><a href=""></a>var X_C <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de la materia prima C</span></span>
-<span id="cb2-8"><a href=""></a></span>
-<span id="cb2-9"><a href=""></a><span class="co"># Funcion objetivo</span></span>
-<span id="cb2-10"><a href=""></a>minimize Z: <span class="fl">2.35</span><span class="op">*</span>X_A <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">1.7</span><span class="op">*</span>X_C<span class="op">;</span></span>
-<span id="cb2-11"><a href=""></a></span>
-<span id="cb2-12"><a href=""></a><span class="co"># Restricciones</span></span>
-<span id="cb2-13"><a href=""></a>s.t. Contenido_Azucar:</span>
-<span id="cb2-14"><a href=""></a>  <span class="fl">0.12</span><span class="op">*</span>X_A <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">0.08</span><span class="op">*</span>X_C <span class="op">&gt;=</span> <span class="fl">0.1</span><span class="op">;</span></span>
-<span id="cb2-15"><a href=""></a>  </span>
-<span id="cb2-16"><a href=""></a>s.t. Contenido_Grasa:</span>
-<span id="cb2-17"><a href=""></a>  <span class="fl">0.1</span><span class="op">*</span>X_A <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">0.06</span><span class="op">*</span>X_C <span class="op">&lt;=</span> <span class="fl">0.095</span><span class="op">;</span></span>
-<span id="cb2-18"><a href=""></a>  </span>
-<span id="cb2-19"><a href=""></a>s.t. Contenido_Proteinas:</span>
-<span id="cb2-20"><a href=""></a>  <span class="fl">0.6</span><span class="op">*</span>X_A <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">0.44</span><span class="op">*</span>X_C <span class="op">&gt;=</span> <span class="fl">0.52</span><span class="op">;</span></span>
-<span id="cb2-21"><a href=""></a>  </span>
-<span id="cb2-22"><a href=""></a>s.t. Cantidad_Requerida:</span>
-<span id="cb2-23"><a href=""></a>  X_A <span class="op">+</span> X_B <span class="op">+</span> X_C <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb2-24"><a href=""></a></span>
-<span id="cb2-25"><a href=""></a><span class="co"># Opciones del solver</span></span>
-<span id="cb2-26"><a href=""></a>option solver highs<span class="op">;</span></span>
-<span id="cb2-27"><a href=""></a>solve<span class="op">;</span></span>
-<span id="cb2-28"><a href=""></a>display Z, X_A, X_B, X_C<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7" data-code-line-numbers="1|2|9,10|4,5|4,6|4,7|12-14|12,16,17|12,19,20|12,22,23|25,26|25,27|25,28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
+<span id="cb7-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
+<span id="cb7-3"><a href=""></a></span>
+<span id="cb7-4"><a href=""></a><span class="co"># Variables</span></span>
+<span id="cb7-5"><a href=""></a>var X_A <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de la materia prima A</span></span>
+<span id="cb7-6"><a href=""></a>var X_B <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de la materia prima B</span></span>
+<span id="cb7-7"><a href=""></a>var X_C <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de la materia prima C</span></span>
+<span id="cb7-8"><a href=""></a></span>
+<span id="cb7-9"><a href=""></a><span class="co"># Funcion objetivo</span></span>
+<span id="cb7-10"><a href=""></a>minimize Z: <span class="fl">2.35</span><span class="op">*</span>X_A <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">1.7</span><span class="op">*</span>X_C<span class="op">;</span></span>
+<span id="cb7-11"><a href=""></a></span>
+<span id="cb7-12"><a href=""></a><span class="co"># Restricciones</span></span>
+<span id="cb7-13"><a href=""></a>s.t. Contenido_Azucar:</span>
+<span id="cb7-14"><a href=""></a>  <span class="fl">0.12</span><span class="op">*</span>X_A <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">0.08</span><span class="op">*</span>X_C <span class="op">&gt;=</span> <span class="fl">0.1</span><span class="op">;</span></span>
+<span id="cb7-15"><a href=""></a>  </span>
+<span id="cb7-16"><a href=""></a>s.t. Contenido_Grasa:</span>
+<span id="cb7-17"><a href=""></a>  <span class="fl">0.1</span><span class="op">*</span>X_A <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">0.06</span><span class="op">*</span>X_C <span class="op">&lt;=</span> <span class="fl">0.095</span><span class="op">;</span></span>
+<span id="cb7-18"><a href=""></a>  </span>
+<span id="cb7-19"><a href=""></a>s.t. Contenido_Proteinas:</span>
+<span id="cb7-20"><a href=""></a>  <span class="fl">0.6</span><span class="op">*</span>X_A <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span>X_B <span class="op">+</span> <span class="fl">0.44</span><span class="op">*</span>X_C <span class="op">&gt;=</span> <span class="fl">0.52</span><span class="op">;</span></span>
+<span id="cb7-21"><a href=""></a>  </span>
+<span id="cb7-22"><a href=""></a>s.t. Cantidad_Requerida:</span>
+<span id="cb7-23"><a href=""></a>  X_A <span class="op">+</span> X_B <span class="op">+</span> X_C <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-24"><a href=""></a></span>
+<span id="cb7-25"><a href=""></a><span class="co"># Opciones del solver</span></span>
+<span id="cb7-26"><a href=""></a>option solver highs<span class="op">;</span></span>
+<span id="cb7-27"><a href=""></a>solve<span class="op">;</span></span>
+<span id="cb7-28"><a href=""></a>display Z, X_A, X_B, X_C<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="esquema-del-archivo-mod---notación-compacta" class="title-slide slide level3 center">
+<section id="esquema-del-archivo-mod---notación-compacta-1" class="title-slide slide level3 center">
 <h3>Esquema del archivo mod - Notación compacta</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
-<span id="cb3-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
-<span id="cb3-3"><a href=""></a></span>
-<span id="cb3-4"><a href=""></a><span class="co"># Conjuntos</span></span>
-<span id="cb3-5"><a href=""></a></span>
-<span id="cb3-6"><a href=""></a><span class="co"># Parametros</span></span>
-<span id="cb3-7"><a href=""></a></span>
-<span id="cb3-8"><a href=""></a><span class="co"># Variables</span></span>
-<span id="cb3-9"><a href=""></a></span>
-<span id="cb3-10"><a href=""></a><span class="co"># Funcion objetivo</span></span>
-<span id="cb3-11"><a href=""></a></span>
-<span id="cb3-12"><a href=""></a><span class="co"># Restricciones</span></span>
-<span id="cb3-13"><a href=""></a></span>
-<span id="cb3-14"><a href=""></a><span class="co"># Datos</span></span>
-<span id="cb3-15"><a href=""></a></span>
-<span id="cb3-16"><a href=""></a><span class="co"># Opciones del solver</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
+<span id="cb8-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
+<span id="cb8-3"><a href=""></a></span>
+<span id="cb8-4"><a href=""></a><span class="co"># Conjuntos</span></span>
+<span id="cb8-5"><a href=""></a></span>
+<span id="cb8-6"><a href=""></a><span class="co"># Parametros</span></span>
+<span id="cb8-7"><a href=""></a></span>
+<span id="cb8-8"><a href=""></a><span class="co"># Variables</span></span>
+<span id="cb8-9"><a href=""></a></span>
+<span id="cb8-10"><a href=""></a><span class="co"># Funcion objetivo</span></span>
+<span id="cb8-11"><a href=""></a></span>
+<span id="cb8-12"><a href=""></a><span class="co"># Restricciones</span></span>
+<span id="cb8-13"><a href=""></a></span>
+<span id="cb8-14"><a href=""></a><span class="co"># Datos</span></span>
+<span id="cb8-15"><a href=""></a></span>
+<span id="cb8-16"><a href=""></a><span class="co"># Opciones del solver</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="archivo-mod---notación-compacta" class="title-slide slide level3 center">
+<section id="archivo-mod---notación-compacta-1" class="title-slide slide level3 center">
 <h3>Archivo mod - Notación compacta</h3>
-<div class="sourceCode" id="cb4" data-code-line-numbers="1|2|19-21|4,5|7,8|16,17|23-25|7,9,10|23,27,28|7,11,12|23,30,31|7,13,14|23,33,34|36,37|39,40|39,41|39,42|39,43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
-<span id="cb4-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a><span class="co"># Conjuntos</span></span>
-<span id="cb4-5"><a href=""></a><span class="bu">set</span> N<span class="op">;</span> <span class="co"># Conjunto de materias primas</span></span>
-<span id="cb4-6"><a href=""></a></span>
-<span id="cb4-7"><a href=""></a><span class="co"># Parametros</span></span>
-<span id="cb4-8"><a href=""></a>param Costo{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Costo de cada materia prima</span></span>
-<span id="cb4-9"><a href=""></a>param Azucar{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Aporte de azucar de cada mp</span></span>
-<span id="cb4-10"><a href=""></a>param minimo_azucar <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-11"><a href=""></a>param Grasa{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Aporte de grasa de cada mp</span></span>
-<span id="cb4-12"><a href=""></a>param maximo_grasa <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-13"><a href=""></a>param Proteinas{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Aporte de proteinas de cada mp</span></span>
-<span id="cb4-14"><a href=""></a>param minimo_proteinas <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span></span>
-<span id="cb4-15"><a href=""></a></span>
-<span id="cb4-16"><a href=""></a><span class="co"># Variables</span></span>
-<span id="cb4-17"><a href=""></a>var X{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad a usar de cada materia prima</span></span>
-<span id="cb4-18"><a href=""></a></span>
-<span id="cb4-19"><a href=""></a><span class="co"># Funcion objetivo</span></span>
-<span id="cb4-20"><a href=""></a>maximize Z:</span>
-<span id="cb4-21"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Costo[i]<span class="op">*</span>X[i]<span class="op">;</span></span>
-<span id="cb4-22"><a href=""></a></span>
-<span id="cb4-23"><a href=""></a><span class="co"># Restricciones</span></span>
-<span id="cb4-24"><a href=""></a>s.t. Contenido_Azucar:</span>
-<span id="cb4-25"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Azucar[i]<span class="op">*</span>X[i] <span class="op">&gt;=</span> minimo_azucar<span class="op">;</span></span>
-<span id="cb4-26"><a href=""></a></span>
-<span id="cb4-27"><a href=""></a>s.t. Contenido_Grasa:</span>
-<span id="cb4-28"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Grasa[i]<span class="op">*</span>X[i] <span class="op">&lt;=</span> maximo_grasa<span class="op">;</span></span>
-<span id="cb4-29"><a href=""></a>  </span>
-<span id="cb4-30"><a href=""></a>s.t. Contenido_Proteinas:</span>
-<span id="cb4-31"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Proteinas[i]<span class="op">*</span>X[i] <span class="op">&gt;=</span> minimo_proteinas<span class="op">;</span></span>
-<span id="cb4-32"><a href=""></a>  </span>
-<span id="cb4-33"><a href=""></a>s.t. Cantidad_Requerida:</span>
-<span id="cb4-34"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} X[i] <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
-<span id="cb4-35"><a href=""></a></span>
-<span id="cb4-36"><a href=""></a><span class="co"># Datos</span></span>
-<span id="cb4-37"><a href=""></a>data AMPL_ejemplo1.dat<span class="op">;</span> <span class="co"># Indica de dónde extraer los datos</span></span>
-<span id="cb4-38"><a href=""></a></span>
-<span id="cb4-39"><a href=""></a><span class="co"># Opciones del solver</span></span>
-<span id="cb4-40"><a href=""></a>option solver highs<span class="op">;</span></span>
-<span id="cb4-41"><a href=""></a>expand<span class="op">;</span> <span class="co"># Expande el modelo, sirve para validar</span></span>
-<span id="cb4-42"><a href=""></a>solve<span class="op">;</span></span>
-<span id="cb4-43"><a href=""></a>display Z, X<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9" data-code-line-numbers="1|2|19-21|4,5|7,8|16,17|23-25|7,9,10|23,27,28|7,11,12|23,30,31|7,13,14|23,33,34|36,37|39,40|39,41|39,42|39,43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
+<span id="cb9-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="co"># Conjuntos</span></span>
+<span id="cb9-5"><a href=""></a><span class="bu">set</span> N<span class="op">;</span> <span class="co"># Conjunto de materias primas</span></span>
+<span id="cb9-6"><a href=""></a></span>
+<span id="cb9-7"><a href=""></a><span class="co"># Parametros</span></span>
+<span id="cb9-8"><a href=""></a>param Costo{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Costo de cada materia prima</span></span>
+<span id="cb9-9"><a href=""></a>param Azucar{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Aporte de azucar de cada mp</span></span>
+<span id="cb9-10"><a href=""></a>param minimo_azucar <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-11"><a href=""></a>param Grasa{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Aporte de grasa de cada mp</span></span>
+<span id="cb9-12"><a href=""></a>param maximo_grasa <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-13"><a href=""></a>param Proteinas{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Aporte de proteinas de cada mp</span></span>
+<span id="cb9-14"><a href=""></a>param minimo_proteinas <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb9-15"><a href=""></a></span>
+<span id="cb9-16"><a href=""></a><span class="co"># Variables</span></span>
+<span id="cb9-17"><a href=""></a>var X{N} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad a usar de cada materia prima</span></span>
+<span id="cb9-18"><a href=""></a></span>
+<span id="cb9-19"><a href=""></a><span class="co"># Funcion objetivo</span></span>
+<span id="cb9-20"><a href=""></a>maximize Z:</span>
+<span id="cb9-21"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Costo[i]<span class="op">*</span>X[i]<span class="op">;</span></span>
+<span id="cb9-22"><a href=""></a></span>
+<span id="cb9-23"><a href=""></a><span class="co"># Restricciones</span></span>
+<span id="cb9-24"><a href=""></a>s.t. Contenido_Azucar:</span>
+<span id="cb9-25"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Azucar[i]<span class="op">*</span>X[i] <span class="op">&gt;=</span> minimo_azucar<span class="op">;</span></span>
+<span id="cb9-26"><a href=""></a></span>
+<span id="cb9-27"><a href=""></a>s.t. Contenido_Grasa:</span>
+<span id="cb9-28"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Grasa[i]<span class="op">*</span>X[i] <span class="op">&lt;=</span> maximo_grasa<span class="op">;</span></span>
+<span id="cb9-29"><a href=""></a>  </span>
+<span id="cb9-30"><a href=""></a>s.t. Contenido_Proteinas:</span>
+<span id="cb9-31"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} Proteinas[i]<span class="op">*</span>X[i] <span class="op">&gt;=</span> minimo_proteinas<span class="op">;</span></span>
+<span id="cb9-32"><a href=""></a>  </span>
+<span id="cb9-33"><a href=""></a>s.t. Cantidad_Requerida:</span>
+<span id="cb9-34"><a href=""></a>  <span class="bu">sum</span>{i <span class="kw">in</span> N} X[i] <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb9-35"><a href=""></a></span>
+<span id="cb9-36"><a href=""></a><span class="co"># Datos</span></span>
+<span id="cb9-37"><a href=""></a>data AMPL_ejemplo1.dat<span class="op">;</span> <span class="co"># Indica de dónde extraer los datos</span></span>
+<span id="cb9-38"><a href=""></a></span>
+<span id="cb9-39"><a href=""></a><span class="co"># Opciones del solver</span></span>
+<span id="cb9-40"><a href=""></a>option solver highs<span class="op">;</span></span>
+<span id="cb9-41"><a href=""></a>expand<span class="op">;</span> <span class="co"># Expande el modelo, sirve para validar</span></span>
+<span id="cb9-42"><a href=""></a>solve<span class="op">;</span></span>
+<span id="cb9-43"><a href=""></a>display Z, X<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="archivo-dat---notación-compacta" class="title-slide slide level3 center">
+<section id="archivo-dat---notación-compacta-1" class="title-slide slide level3 center">
 <h3>Archivo dat - Notación compacta</h3>
-<div class="sourceCode" id="cb5" data-code-line-numbers="1,2|4-8|4,10-13|4,15-18|20-23|25-27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href=""></a><span class="co"># Conjuntos</span></span>
-<span id="cb5-2"><a href=""></a><span class="bu">set</span> N<span class="op">:=</span> A B C<span class="op">;</span></span>
-<span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a><span class="co"># Parametros</span></span>
-<span id="cb5-5"><a href=""></a>param Costo<span class="op">:=</span></span>
-<span id="cb5-6"><a href=""></a>A <span class="fl">2.35</span></span>
-<span id="cb5-7"><a href=""></a>B <span class="dv">2</span></span>
-<span id="cb5-8"><a href=""></a>C <span class="fl">1.7</span><span class="op">;</span></span>
-<span id="cb5-9"><a href=""></a></span>
-<span id="cb5-10"><a href=""></a>param Azucar<span class="op">:=</span></span>
-<span id="cb5-11"><a href=""></a>A <span class="fl">0.12</span></span>
-<span id="cb5-12"><a href=""></a>B <span class="fl">0.10</span></span>
-<span id="cb5-13"><a href=""></a>C <span class="fl">0.08</span><span class="op">;</span></span>
-<span id="cb5-14"><a href=""></a></span>
-<span id="cb5-15"><a href=""></a>param Grasa<span class="op">:=</span></span>
-<span id="cb5-16"><a href=""></a>A <span class="fl">0.1</span></span>
-<span id="cb5-17"><a href=""></a>B <span class="fl">0.1</span></span>
-<span id="cb5-18"><a href=""></a>C <span class="fl">0.06</span><span class="op">;</span></span>
-<span id="cb5-19"><a href=""></a></span>
-<span id="cb5-20"><a href=""></a>param Proteinas<span class="op">:=</span></span>
-<span id="cb5-21"><a href=""></a>A <span class="fl">0.6</span></span>
-<span id="cb5-22"><a href=""></a>B <span class="fl">0.5</span></span>
-<span id="cb5-23"><a href=""></a>C <span class="fl">0.44</span><span class="op">;</span></span>
-<span id="cb5-24"><a href=""></a></span>
-<span id="cb5-25"><a href=""></a>param minimo_azucar<span class="op">:=</span> <span class="fl">0.1</span><span class="op">;</span></span>
-<span id="cb5-26"><a href=""></a>param maximo_grasa<span class="op">:=</span> <span class="fl">0.095</span><span class="op">;</span></span>
-<span id="cb5-27"><a href=""></a>param minimo_proteinas<span class="op">:=</span> <span class="fl">0.52</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10" data-code-line-numbers="1,2|4-8|4,10-13|4,15-18|20-23|25-27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href=""></a><span class="co"># Conjuntos</span></span>
+<span id="cb10-2"><a href=""></a><span class="bu">set</span> N<span class="op">:=</span> A B C<span class="op">;</span></span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="co"># Parametros</span></span>
+<span id="cb10-5"><a href=""></a>param Costo<span class="op">:=</span></span>
+<span id="cb10-6"><a href=""></a>A <span class="fl">2.35</span></span>
+<span id="cb10-7"><a href=""></a>B <span class="dv">2</span></span>
+<span id="cb10-8"><a href=""></a>C <span class="fl">1.7</span><span class="op">;</span></span>
+<span id="cb10-9"><a href=""></a></span>
+<span id="cb10-10"><a href=""></a>param Azucar<span class="op">:=</span></span>
+<span id="cb10-11"><a href=""></a>A <span class="fl">0.12</span></span>
+<span id="cb10-12"><a href=""></a>B <span class="fl">0.10</span></span>
+<span id="cb10-13"><a href=""></a>C <span class="fl">0.08</span><span class="op">;</span></span>
+<span id="cb10-14"><a href=""></a></span>
+<span id="cb10-15"><a href=""></a>param Grasa<span class="op">:=</span></span>
+<span id="cb10-16"><a href=""></a>A <span class="fl">0.1</span></span>
+<span id="cb10-17"><a href=""></a>B <span class="fl">0.1</span></span>
+<span id="cb10-18"><a href=""></a>C <span class="fl">0.06</span><span class="op">;</span></span>
+<span id="cb10-19"><a href=""></a></span>
+<span id="cb10-20"><a href=""></a>param Proteinas<span class="op">:=</span></span>
+<span id="cb10-21"><a href=""></a>A <span class="fl">0.6</span></span>
+<span id="cb10-22"><a href=""></a>B <span class="fl">0.5</span></span>
+<span id="cb10-23"><a href=""></a>C <span class="fl">0.44</span><span class="op">;</span></span>
+<span id="cb10-24"><a href=""></a></span>
+<span id="cb10-25"><a href=""></a>param minimo_azucar<span class="op">:=</span> <span class="fl">0.1</span><span class="op">;</span></span>
+<span id="cb10-26"><a href=""></a>param maximo_grasa<span class="op">:=</span> <span class="fl">0.095</span><span class="op">;</span></span>
+<span id="cb10-27"><a href=""></a>param minimo_proteinas<span class="op">:=</span> <span class="fl">0.52</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="archivo-dat-alternativa---notación-compacta" class="title-slide slide level3 center">
+<section id="archivo-dat-alternativa---notación-compacta-1" class="title-slide slide level3 center">
 <h3>Archivo dat (Alternativa) - Notación compacta</h3>
-<div class="sourceCode" id="cb6" data-code-line-numbers="1,2|4-10|4,12-14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a><span class="co"># Conjuntos</span></span>
-<span id="cb6-2"><a href=""></a><span class="bu">set</span> N<span class="op">:=</span> A B C<span class="op">;</span></span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a><span class="co"># Parametros</span></span>
-<span id="cb6-5"><a href=""></a>param:</span>
-<span id="cb6-6"><a href=""></a>    Costo   Azucar   Grasa  Proteinas<span class="op">:=</span></span>
-<span id="cb6-7"><a href=""></a>A   <span class="fl">2.35</span>    <span class="fl">0.12</span>      <span class="fl">0.10</span>    <span class="fl">0.60</span></span>
-<span id="cb6-8"><a href=""></a>B   <span class="fl">2.0</span>     <span class="fl">0.10</span>    <span class="fl">0.10</span>    <span class="fl">0.50</span></span>
-<span id="cb6-9"><a href=""></a>C   <span class="fl">1.7</span>     <span class="fl">0.08</span>    <span class="fl">0.06</span>    <span class="fl">0.44</span></span>
-<span id="cb6-10"><a href=""></a><span class="op">;</span></span>
-<span id="cb6-11"><a href=""></a></span>
-<span id="cb6-12"><a href=""></a>param minimo_azucar<span class="op">:=</span> <span class="fl">0.1</span><span class="op">;</span></span>
-<span id="cb6-13"><a href=""></a>param maximo_grasa<span class="op">:=</span> <span class="fl">0.095</span><span class="op">;</span></span>
-<span id="cb6-14"><a href=""></a>param minimo_proteinas<span class="op">:=</span> <span class="fl">0.52</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11" data-code-line-numbers="1,2|4-10|4,12-14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href=""></a><span class="co"># Conjuntos</span></span>
+<span id="cb11-2"><a href=""></a><span class="bu">set</span> N<span class="op">:=</span> A B C<span class="op">;</span></span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="co"># Parametros</span></span>
+<span id="cb11-5"><a href=""></a>param:</span>
+<span id="cb11-6"><a href=""></a>    Costo   Azucar   Grasa  Proteinas<span class="op">:=</span></span>
+<span id="cb11-7"><a href=""></a>A   <span class="fl">2.35</span>    <span class="fl">0.12</span>      <span class="fl">0.10</span>    <span class="fl">0.60</span></span>
+<span id="cb11-8"><a href=""></a>B   <span class="fl">2.0</span>     <span class="fl">0.10</span>    <span class="fl">0.10</span>    <span class="fl">0.50</span></span>
+<span id="cb11-9"><a href=""></a>C   <span class="fl">1.7</span>     <span class="fl">0.08</span>    <span class="fl">0.06</span>    <span class="fl">0.44</span></span>
+<span id="cb11-10"><a href=""></a><span class="op">;</span></span>
+<span id="cb11-11"><a href=""></a></span>
+<span id="cb11-12"><a href=""></a>param minimo_azucar<span class="op">:=</span> <span class="fl">0.1</span><span class="op">;</span></span>
+<span id="cb11-13"><a href=""></a>param maximo_grasa<span class="op">:=</span> <span class="fl">0.095</span><span class="op">;</span></span>
+<span id="cb11-14"><a href=""></a>param minimo_proteinas<span class="op">:=</span> <span class="fl">0.52</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
 <section id="solución" class="title-slide slide level3 center">
@@ -761,7 +914,7 @@ unidad ($/uni)</td>
 <p>¿Cuántas unidades se deben producir de cada producto para maximizar
 la utilidad?</p>
 </section>
-<section id="notación-expandida-1" class="slide level4">
+<section id="notación-expandida-2" class="slide level4">
 <h4>Notación expandida</h4>
 <div class="r-fit-text">
 <p><span class="math inline">\(\begin{align*}
@@ -793,7 +946,7 @@ X_{4} &amp;= \text{Cantidad a fabricar de guantes}
 \end{align*}\)</span></p>
 </div>
 </section>
-<section id="notación-compacta-1" class="slide level4">
+<section id="notación-compacta-2" class="slide level4">
 <h4>Notación compacta</h4>
 <div class="smaller-text">
 <p><span class="math inline">\(\begin{align*}
@@ -817,7 +970,7 @@ M &amp;= \text{Conjunto de productos}
 \end{align*}\)</span></p>
 </div>
 </section>
-<section id="notación-compacta-2" class="slide level4">
+<section id="notación-compacta-3" class="slide level4">
 <h4>Notación compacta</h4>
 <div class="small-text">
 <p><span class="math inline">\(\begin{align*}
@@ -836,139 +989,128 @@ M &amp;= \text{Cantidad de productos}
 </div>
 </section>
 
-<section id="archivo-mod---notación-compacta-1" class="title-slide slide level3 center">
+<section id="archivo-mod---notación-compacta-2" class="title-slide slide level3 center">
 <h3>Archivo mod - Notación compacta</h3>
-<div class="sourceCode" id="cb7" data-code-line-numbers="1,2|19-21|4-6|9,10|9,11|9,12|16,17|23-26|4,7|9,13|9,14|28-30|32,33|35,36|35,37|35,38|35,39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
-<span id="cb7-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
-<span id="cb7-3"><a href=""></a></span>
-<span id="cb7-4"><a href=""></a><span class="co"># Conjuntos</span></span>
-<span id="cb7-5"><a href=""></a>param M integer <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de productos</span></span>
-<span id="cb7-6"><a href=""></a><span class="bu">set</span> Productos<span class="op">:=</span> <span class="fl">1.</span>.M<span class="op">;</span> <span class="co"># Conjunto de productos</span></span>
-<span id="cb7-7"><a href=""></a><span class="bu">set</span> Areas<span class="op">;</span> <span class="co"># Conjuntos de areas de produccion</span></span>
-<span id="cb7-8"><a href=""></a></span>
-<span id="cb7-9"><a href=""></a><span class="co"># Parametros</span></span>
-<span id="cb7-10"><a href=""></a>param Utilidad{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Utilidad unitaria por producto</span></span>
-<span id="cb7-11"><a href=""></a>param Penalidad{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Penalidad unitaria por demanda no cubierta</span></span>
-<span id="cb7-12"><a href=""></a>param Demanda{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Demanda por tipo de producto</span></span>
-<span id="cb7-13"><a href=""></a>param TiempoRequerido{Productos, Areas} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Tiempo requerido por el producto i en el area j</span></span>
-<span id="cb7-14"><a href=""></a>param TiempoDisponible{Areas} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Tiempo disponible  </span></span>
-<span id="cb7-15"><a href=""></a></span>
-<span id="cb7-16"><a href=""></a><span class="co"># Variables</span></span>
-<span id="cb7-17"><a href=""></a>var X{Productos} integer <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad a fabricar del producto i</span></span>
-<span id="cb7-18"><a href=""></a></span>
-<span id="cb7-19"><a href=""></a><span class="co"># Funcion objetivo</span></span>
-<span id="cb7-20"><a href=""></a>maximize Z:</span>
-<span id="cb7-21"><a href=""></a>    <span class="bu">sum</span>{i <span class="kw">in</span> Productos} (Utilidad[i]<span class="op">*</span>X[i] <span class="op">-</span> Penalidad[i]<span class="op">*</span><span class="bu">max</span>(Demanda[i]<span class="op">-</span>X[i], <span class="dv">0</span>))<span class="op">;</span></span>
-<span id="cb7-22"><a href=""></a></span>
-<span id="cb7-23"><a href=""></a><span class="co"># Restricciones</span></span>
-<span id="cb7-24"><a href=""></a>s.t. Tiempo{(i,j) <span class="kw">in</span> {Productos,Areas}}:</span>
-<span id="cb7-25"><a href=""></a>    TiempoRequerido[i,j]<span class="op">*</span>X[i] <span class="op">&lt;=</span> TiempoDisponible[j]</span>
-<span id="cb7-26"><a href=""></a><span class="op">;</span></span>
-<span id="cb7-27"><a href=""></a></span>
-<span id="cb7-28"><a href=""></a>s.t. Demandas{i <span class="kw">in</span> Productos}:</span>
-<span id="cb7-29"><a href=""></a>    X[i] <span class="op">&lt;=</span> Demanda[i]</span>
-<span id="cb7-30"><a href=""></a><span class="op">;</span></span>
-<span id="cb7-31"><a href=""></a></span>
-<span id="cb7-32"><a href=""></a><span class="co"># Datos</span></span>
-<span id="cb7-33"><a href=""></a>data <span class="dv">0</span><span class="er">_AMPL_Ejemplo2Compacto</span>.dat<span class="op">;</span> <span class="co"># Indica de donde extraer los datos</span></span>
-<span id="cb7-34"><a href=""></a></span>
-<span id="cb7-35"><a href=""></a><span class="co"># Opciones del solver</span></span>
-<span id="cb7-36"><a href=""></a>option solver highs<span class="op">;</span></span>
-<span id="cb7-37"><a href=""></a>expand<span class="op">;</span></span>
-<span id="cb7-38"><a href=""></a>solve<span class="op">;</span></span>
-<span id="cb7-39"><a href=""></a>display Z, X<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12" data-code-line-numbers="1,2|19-21|4-6|9,10|9,11|9,12|16,17|23-26|4,7|9,13|9,14|28-30|32,33|35,36|35,37|35,38|35,39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># Elimina las variables, parametros y soluciones previas</span></span>
+<span id="cb12-2"><a href=""></a>model<span class="op">;</span> <span class="co"># Indica el inicio del modelo</span></span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="co"># Conjuntos</span></span>
+<span id="cb12-5"><a href=""></a>param M integer <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad de productos</span></span>
+<span id="cb12-6"><a href=""></a><span class="bu">set</span> Productos<span class="op">:=</span> <span class="fl">1.</span>.M<span class="op">;</span> <span class="co"># Conjunto de productos</span></span>
+<span id="cb12-7"><a href=""></a><span class="bu">set</span> Areas<span class="op">;</span> <span class="co"># Conjuntos de areas de produccion</span></span>
+<span id="cb12-8"><a href=""></a></span>
+<span id="cb12-9"><a href=""></a><span class="co"># Parametros</span></span>
+<span id="cb12-10"><a href=""></a>param Utilidad{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Utilidad unitaria por producto</span></span>
+<span id="cb12-11"><a href=""></a>param Penalidad{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Penalidad unitaria por demanda no cubierta</span></span>
+<span id="cb12-12"><a href=""></a>param Demanda{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Demanda por tipo de producto</span></span>
+<span id="cb12-13"><a href=""></a>param TiempoRequerido{Productos, Areas} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Tiempo requerido por el producto i en el area j</span></span>
+<span id="cb12-14"><a href=""></a>param TiempoDisponible{Areas} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Tiempo disponible  </span></span>
+<span id="cb12-15"><a href=""></a></span>
+<span id="cb12-16"><a href=""></a><span class="co"># Variables</span></span>
+<span id="cb12-17"><a href=""></a>var X{Productos} integer <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Cantidad a fabricar del producto i</span></span>
+<span id="cb12-18"><a href=""></a></span>
+<span id="cb12-19"><a href=""></a><span class="co"># Funcion objetivo</span></span>
+<span id="cb12-20"><a href=""></a>maximize Z:</span>
+<span id="cb12-21"><a href=""></a>    <span class="bu">sum</span>{i <span class="kw">in</span> Productos} (Utilidad[i]<span class="op">*</span>X[i] <span class="op">-</span> Penalidad[i]<span class="op">*</span><span class="bu">max</span>(Demanda[i]<span class="op">-</span>X[i], <span class="dv">0</span>))<span class="op">;</span></span>
+<span id="cb12-22"><a href=""></a></span>
+<span id="cb12-23"><a href=""></a><span class="co"># Restricciones</span></span>
+<span id="cb12-24"><a href=""></a>s.t. Tiempo{(i,j) <span class="kw">in</span> {Productos,Areas}}:</span>
+<span id="cb12-25"><a href=""></a>    TiempoRequerido[i,j]<span class="op">*</span>X[i] <span class="op">&lt;=</span> TiempoDisponible[j]</span>
+<span id="cb12-26"><a href=""></a><span class="op">;</span></span>
+<span id="cb12-27"><a href=""></a></span>
+<span id="cb12-28"><a href=""></a>s.t. Demandas{i <span class="kw">in</span> Productos}:</span>
+<span id="cb12-29"><a href=""></a>    X[i] <span class="op">&lt;=</span> Demanda[i]</span>
+<span id="cb12-30"><a href=""></a><span class="op">;</span></span>
+<span id="cb12-31"><a href=""></a></span>
+<span id="cb12-32"><a href=""></a><span class="co"># Datos</span></span>
+<span id="cb12-33"><a href=""></a>data <span class="dv">0</span><span class="er">_AMPL_Ejemplo2Compacto</span>.dat<span class="op">;</span> <span class="co"># Indica de donde extraer los datos</span></span>
+<span id="cb12-34"><a href=""></a></span>
+<span id="cb12-35"><a href=""></a><span class="co"># Opciones del solver</span></span>
+<span id="cb12-36"><a href=""></a>option solver highs<span class="op">;</span></span>
+<span id="cb12-37"><a href=""></a>expand<span class="op">;</span></span>
+<span id="cb12-38"><a href=""></a>solve<span class="op">;</span></span>
+<span id="cb12-39"><a href=""></a>display Z, X<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="archivo-dat---notación-compacta-1" class="title-slide slide level3 center">
+<section id="archivo-dat---notación-compacta-2" class="title-slide slide level3 center">
 <h3>Archivo dat - Notación compacta</h3>
-<div class="sourceCode" id="cb8" data-code-line-numbers="1|3|5-11|13-30|32-37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href=""></a>param M<span class="op">:=</span> <span class="dv">4</span><span class="op">;</span> <span class="co"># Cantidad de productos</span></span>
-<span id="cb8-2"><a href=""></a></span>
-<span id="cb8-3"><a href=""></a><span class="bu">set</span> Areas<span class="op">:=</span> Corte Aislamiento Costura Empaque<span class="op">;</span></span>
-<span id="cb8-4"><a href=""></a></span>
-<span id="cb8-5"><a href=""></a>param:</span>
-<span id="cb8-6"><a href=""></a>    Utilidad    Penalidad   Demanda<span class="op">:=</span></span>
-<span id="cb8-7"><a href=""></a><span class="dv">1</span>       <span class="dv">30</span>          <span class="dv">15</span>          <span class="dv">800</span></span>
-<span id="cb8-8"><a href=""></a><span class="dv">2</span>       <span class="dv">40</span>          <span class="dv">20</span>          <span class="dv">750</span></span>
-<span id="cb8-9"><a href=""></a><span class="dv">3</span>       <span class="dv">20</span>          <span class="dv">10</span>          <span class="dv">600</span></span>
-<span id="cb8-10"><a href=""></a><span class="dv">4</span>       <span class="dv">10</span>          <span class="dv">8</span>           <span class="dv">500</span></span>
-<span id="cb8-11"><a href=""></a><span class="op">;</span></span>
-<span id="cb8-12"><a href=""></a></span>
-<span id="cb8-13"><a href=""></a>param TiempoRequerido<span class="op">:=</span></span>
-<span id="cb8-14"><a href=""></a><span class="dv">1</span> Corte <span class="fl">0.3</span></span>
-<span id="cb8-15"><a href=""></a><span class="dv">1</span> Aislamiento <span class="fl">0.25</span> </span>
-<span id="cb8-16"><a href=""></a><span class="dv">1</span> Costura <span class="fl">0.45</span></span>
-<span id="cb8-17"><a href=""></a><span class="dv">1</span> Empaque <span class="fl">0.15</span></span>
-<span id="cb8-18"><a href=""></a><span class="dv">2</span> Corte <span class="fl">0.3</span></span>
-<span id="cb8-19"><a href=""></a><span class="dv">2</span> Aislamiento <span class="fl">0.35</span> </span>
-<span id="cb8-20"><a href=""></a><span class="dv">2</span> Costura <span class="fl">0.5</span></span>
-<span id="cb8-21"><a href=""></a><span class="dv">2</span> Empaque <span class="fl">0.15</span></span>
-<span id="cb8-22"><a href=""></a><span class="dv">3</span> Corte <span class="fl">0.25</span></span>
-<span id="cb8-23"><a href=""></a><span class="dv">3</span> Aislamiento <span class="fl">0.3</span> </span>
-<span id="cb8-24"><a href=""></a><span class="dv">3</span> Costura <span class="fl">0.4</span></span>
-<span id="cb8-25"><a href=""></a><span class="dv">3</span> Empaque <span class="fl">0.1</span></span>
-<span id="cb8-26"><a href=""></a><span class="dv">4</span> Corte <span class="fl">0.15</span></span>
-<span id="cb8-27"><a href=""></a><span class="dv">4</span> Aislamiento <span class="fl">0.1</span> </span>
-<span id="cb8-28"><a href=""></a><span class="dv">4</span> Costura <span class="fl">0.22</span></span>
-<span id="cb8-29"><a href=""></a><span class="dv">4</span> Empaque <span class="fl">0.05</span></span>
-<span id="cb8-30"><a href=""></a><span class="op">;</span></span>
-<span id="cb8-31"><a href=""></a></span>
-<span id="cb8-32"><a href=""></a>param TiempoDisponible<span class="op">:=</span></span>
-<span id="cb8-33"><a href=""></a>Corte <span class="dv">1000</span></span>
-<span id="cb8-34"><a href=""></a>Aislamiento <span class="dv">500</span> </span>
-<span id="cb8-35"><a href=""></a>Costura <span class="dv">302</span></span>
-<span id="cb8-36"><a href=""></a>Empaque <span class="dv">700</span></span>
-<span id="cb8-37"><a href=""></a><span class="op">;</span></span>
-<span id="cb8-38"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13" data-code-line-numbers="1|3|5-11|13-30|32-37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href=""></a>param M<span class="op">:=</span> <span class="dv">4</span><span class="op">;</span> <span class="co"># Cantidad de productos</span></span>
+<span id="cb13-2"><a href=""></a></span>
+<span id="cb13-3"><a href=""></a><span class="bu">set</span> Areas<span class="op">:=</span> Corte Aislamiento Costura Empaque<span class="op">;</span></span>
+<span id="cb13-4"><a href=""></a></span>
+<span id="cb13-5"><a href=""></a>param:</span>
+<span id="cb13-6"><a href=""></a>    Utilidad    Penalidad   Demanda<span class="op">:=</span></span>
+<span id="cb13-7"><a href=""></a><span class="dv">1</span>       <span class="dv">30</span>          <span class="dv">15</span>          <span class="dv">800</span></span>
+<span id="cb13-8"><a href=""></a><span class="dv">2</span>       <span class="dv">40</span>          <span class="dv">20</span>          <span class="dv">750</span></span>
+<span id="cb13-9"><a href=""></a><span class="dv">3</span>       <span class="dv">20</span>          <span class="dv">10</span>          <span class="dv">600</span></span>
+<span id="cb13-10"><a href=""></a><span class="dv">4</span>       <span class="dv">10</span>          <span class="dv">8</span>           <span class="dv">500</span></span>
+<span id="cb13-11"><a href=""></a><span class="op">;</span></span>
+<span id="cb13-12"><a href=""></a></span>
+<span id="cb13-13"><a href=""></a>param TiempoRequerido<span class="op">:=</span></span>
+<span id="cb13-14"><a href=""></a><span class="dv">1</span> Corte <span class="fl">0.3</span></span>
+<span id="cb13-15"><a href=""></a><span class="dv">1</span> Aislamiento <span class="fl">0.25</span> </span>
+<span id="cb13-16"><a href=""></a><span class="dv">1</span> Costura <span class="fl">0.45</span></span>
+<span id="cb13-17"><a href=""></a><span class="dv">1</span> Empaque <span class="fl">0.15</span></span>
+<span id="cb13-18"><a href=""></a><span class="dv">2</span> Corte <span class="fl">0.3</span></span>
+<span id="cb13-19"><a href=""></a><span class="dv">2</span> Aislamiento <span class="fl">0.35</span> </span>
+<span id="cb13-20"><a href=""></a><span class="dv">2</span> Costura <span class="fl">0.5</span></span>
+<span id="cb13-21"><a href=""></a><span class="dv">2</span> Empaque <span class="fl">0.15</span></span>
+<span id="cb13-22"><a href=""></a><span class="dv">3</span> Corte <span class="fl">0.25</span></span>
+<span id="cb13-23"><a href=""></a><span class="dv">3</span> Aislamiento <span class="fl">0.3</span> </span>
+<span id="cb13-24"><a href=""></a><span class="dv">3</span> Costura <span class="fl">0.4</span></span>
+<span id="cb13-25"><a href=""></a><span class="dv">3</span> Empaque <span class="fl">0.1</span></span>
+<span id="cb13-26"><a href=""></a><span class="dv">4</span> Corte <span class="fl">0.15</span></span>
+<span id="cb13-27"><a href=""></a><span class="dv">4</span> Aislamiento <span class="fl">0.1</span> </span>
+<span id="cb13-28"><a href=""></a><span class="dv">4</span> Costura <span class="fl">0.22</span></span>
+<span id="cb13-29"><a href=""></a><span class="dv">4</span> Empaque <span class="fl">0.05</span></span>
+<span id="cb13-30"><a href=""></a><span class="op">;</span></span>
+<span id="cb13-31"><a href=""></a></span>
+<span id="cb13-32"><a href=""></a>param TiempoDisponible<span class="op">:=</span></span>
+<span id="cb13-33"><a href=""></a>Corte <span class="dv">1000</span></span>
+<span id="cb13-34"><a href=""></a>Aislamiento <span class="dv">500</span> </span>
+<span id="cb13-35"><a href=""></a>Costura <span class="dv">302</span></span>
+<span id="cb13-36"><a href=""></a>Empaque <span class="dv">700</span></span>
+<span id="cb13-37"><a href=""></a><span class="op">;</span></span>
+<span id="cb13-38"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
-<section id="archivo-dat-alternativa---notación-compacta-1" class="title-slide slide level3 center">
+<section id="archivo-dat-alternativa---notación-compacta-2" class="title-slide slide level3 center">
 <h3>Archivo dat (Alternativa) - Notación compacta</h3>
-<div class="sourceCode" id="cb9" data-code-line-numbers="1|3|5-11|13-19|21-26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href=""></a>param M<span class="op">:=</span> <span class="dv">4</span><span class="op">;</span> <span class="co"># Cantidad de productos</span></span>
-<span id="cb9-2"><a href=""></a></span>
-<span id="cb9-3"><a href=""></a><span class="bu">set</span> Areas<span class="op">:=</span> Corte Aislamiento Costura Empaque<span class="op">;</span></span>
-<span id="cb9-4"><a href=""></a></span>
-<span id="cb9-5"><a href=""></a>param:</span>
-<span id="cb9-6"><a href=""></a>    Utilidad    Penalidad   Demanda<span class="op">:=</span></span>
-<span id="cb9-7"><a href=""></a><span class="dv">1</span>       <span class="dv">30</span>          <span class="dv">15</span>          <span class="dv">800</span></span>
-<span id="cb9-8"><a href=""></a><span class="dv">2</span>       <span class="dv">40</span>          <span class="dv">20</span>          <span class="dv">750</span></span>
-<span id="cb9-9"><a href=""></a><span class="dv">3</span>       <span class="dv">20</span>          <span class="dv">10</span>          <span class="dv">600</span></span>
-<span id="cb9-10"><a href=""></a><span class="dv">4</span>       <span class="dv">10</span>          <span class="dv">8</span>           <span class="dv">500</span></span>
-<span id="cb9-11"><a href=""></a><span class="op">;</span></span>
-<span id="cb9-12"><a href=""></a></span>
-<span id="cb9-13"><a href=""></a>param TiempoRequerido:</span>
-<span id="cb9-14"><a href=""></a>    Corte   Aislamiento Costura Empaque<span class="op">:=</span></span>
-<span id="cb9-15"><a href=""></a><span class="dv">1</span>   <span class="fl">0.3</span>         <span class="fl">0.25</span>    <span class="fl">0.45</span>    <span class="fl">0.15</span></span>
-<span id="cb9-16"><a href=""></a><span class="dv">2</span>   <span class="fl">0.3</span>         <span class="fl">0.35</span>    <span class="fl">0.5</span>     <span class="fl">0.15</span></span>
-<span id="cb9-17"><a href=""></a><span class="dv">3</span>   <span class="fl">0.25</span>        <span class="fl">0.3</span>     <span class="fl">0.4</span>     <span class="fl">0.1</span></span>
-<span id="cb9-18"><a href=""></a><span class="dv">4</span>   <span class="fl">0.15</span>        <span class="fl">0.1</span>     <span class="fl">0.22</span>    <span class="fl">0.05</span></span>
-<span id="cb9-19"><a href=""></a><span class="op">;</span></span>
-<span id="cb9-20"><a href=""></a></span>
-<span id="cb9-21"><a href=""></a>param TiempoDisponible<span class="op">:=</span></span>
-<span id="cb9-22"><a href=""></a>Corte <span class="dv">1000</span></span>
-<span id="cb9-23"><a href=""></a>Aislamiento <span class="dv">500</span> </span>
-<span id="cb9-24"><a href=""></a>Costura <span class="dv">302</span></span>
-<span id="cb9-25"><a href=""></a>Empaque <span class="dv">700</span></span>
-<span id="cb9-26"><a href=""></a><span class="op">;</span></span>
-<span id="cb9-27"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14" data-code-line-numbers="1|3|5-11|13-19|21-26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href=""></a>param M<span class="op">:=</span> <span class="dv">4</span><span class="op">;</span> <span class="co"># Cantidad de productos</span></span>
+<span id="cb14-2"><a href=""></a></span>
+<span id="cb14-3"><a href=""></a><span class="bu">set</span> Areas<span class="op">:=</span> Corte Aislamiento Costura Empaque<span class="op">;</span></span>
+<span id="cb14-4"><a href=""></a></span>
+<span id="cb14-5"><a href=""></a>param:</span>
+<span id="cb14-6"><a href=""></a>    Utilidad    Penalidad   Demanda<span class="op">:=</span></span>
+<span id="cb14-7"><a href=""></a><span class="dv">1</span>       <span class="dv">30</span>          <span class="dv">15</span>          <span class="dv">800</span></span>
+<span id="cb14-8"><a href=""></a><span class="dv">2</span>       <span class="dv">40</span>          <span class="dv">20</span>          <span class="dv">750</span></span>
+<span id="cb14-9"><a href=""></a><span class="dv">3</span>       <span class="dv">20</span>          <span class="dv">10</span>          <span class="dv">600</span></span>
+<span id="cb14-10"><a href=""></a><span class="dv">4</span>       <span class="dv">10</span>          <span class="dv">8</span>           <span class="dv">500</span></span>
+<span id="cb14-11"><a href=""></a><span class="op">;</span></span>
+<span id="cb14-12"><a href=""></a></span>
+<span id="cb14-13"><a href=""></a>param TiempoRequerido:</span>
+<span id="cb14-14"><a href=""></a>    Corte   Aislamiento Costura Empaque<span class="op">:=</span></span>
+<span id="cb14-15"><a href=""></a><span class="dv">1</span>   <span class="fl">0.3</span>         <span class="fl">0.25</span>    <span class="fl">0.45</span>    <span class="fl">0.15</span></span>
+<span id="cb14-16"><a href=""></a><span class="dv">2</span>   <span class="fl">0.3</span>         <span class="fl">0.35</span>    <span class="fl">0.5</span>     <span class="fl">0.15</span></span>
+<span id="cb14-17"><a href=""></a><span class="dv">3</span>   <span class="fl">0.25</span>        <span class="fl">0.3</span>     <span class="fl">0.4</span>     <span class="fl">0.1</span></span>
+<span id="cb14-18"><a href=""></a><span class="dv">4</span>   <span class="fl">0.15</span>        <span class="fl">0.1</span>     <span class="fl">0.22</span>    <span class="fl">0.05</span></span>
+<span id="cb14-19"><a href=""></a><span class="op">;</span></span>
+<span id="cb14-20"><a href=""></a></span>
+<span id="cb14-21"><a href=""></a>param TiempoDisponible<span class="op">:=</span></span>
+<span id="cb14-22"><a href=""></a>Corte <span class="dv">1000</span></span>
+<span id="cb14-23"><a href=""></a>Aislamiento <span class="dv">500</span> </span>
+<span id="cb14-24"><a href=""></a>Costura <span class="dv">302</span></span>
+<span id="cb14-25"><a href=""></a>Empaque <span class="dv">700</span></span>
+<span id="cb14-26"><a href=""></a><span class="op">;</span></span>
+<span id="cb14-27"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
 
 <section id="solución-1" class="title-slide slide level2 center">
 <h2>Solución</h2>
 
-<img data-src="0_Figures/1_AMPL_Ejemplo2SolCompacto.png" class="r-stretch"></section>
-</section>
-<section id="módulo-i---producción" class="title-slide slide level1 center">
-<h1>Módulo I - Producción</h1>
-<div>
-<ul>
-<li>Generalidades</li>
-<li>Sistemas de producción</li>
-<li>Planeación de la capacidad de producción</li>
-<li>Programación CPM, PERT y LPU</li>
-</ul>
-</div>
 
+<img data-src="0_Figures/1_AMPL_Ejemplo2SolCompacto.png" class="r-stretch"></section>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
