@@ -573,12 +573,60 @@ X_{j} &amp;= \text{Cantidad a fabricar del producto j}
 
 <section id="archivo-mod---notación-aún-más-compacta" class="title-slide slide level3 center">
 <h3>Archivo mod - Notación aún más compacta</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href=""></a>reset<span class="op">;</span> <span class="co"># limpiar las variables, parametros y soluciones previas</span></span>
+<span id="cb6-2"><a href=""></a>model<span class="op">;</span></span>
+<span id="cb6-3"><a href=""></a></span>
+<span id="cb6-4"><a href=""></a><span class="co"># conjuntos</span></span>
+<span id="cb6-5"><a href=""></a><span class="bu">set</span> Productos<span class="op">;</span></span>
+<span id="cb6-6"><a href=""></a><span class="bu">set</span> Tipo_ficha<span class="op">;</span></span>
+<span id="cb6-7"><a href=""></a></span>
+<span id="cb6-8"><a href=""></a><span class="co"># parametros</span></span>
+<span id="cb6-9"><a href=""></a>param Utilidad{Productos} <span class="op">&gt;</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-10"><a href=""></a>param Fichas_req{Tipo_ficha,Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-11"><a href=""></a>param TF{Tipo_ficha} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Total de Fichas disponibles</span></span>
+<span id="cb6-12"><a href=""></a></span>
+<span id="cb6-13"><a href=""></a><span class="co"># variables</span></span>
+<span id="cb6-14"><a href=""></a>var X{Productos} <span class="op">&gt;=</span><span class="dv">0</span> integer<span class="op">;</span> <span class="co"># Cantidad a fabricar del producto j</span></span>
+<span id="cb6-15"><a href=""></a></span>
+<span id="cb6-16"><a href=""></a><span class="co"># funcion objetivo</span></span>
+<span id="cb6-17"><a href=""></a>maximize Ganancias:</span>
+<span id="cb6-18"><a href=""></a>    <span class="bu">sum</span>{j <span class="kw">in</span> Productos} Utilidad[j]<span class="op">*</span>X[j]<span class="op">;</span></span>
+<span id="cb6-19"><a href=""></a>    </span>
+<span id="cb6-20"><a href=""></a><span class="co"># restricciones</span></span>
+<span id="cb6-21"><a href=""></a>s.t. Fichas_maximas{i <span class="kw">in</span> Tipo_ficha}:</span>
+<span id="cb6-22"><a href=""></a>    <span class="bu">sum</span>{j <span class="kw">in</span> Productos} Fichas_req[i,j]<span class="op">*</span>X[j] <span class="op">&lt;=</span> TF[i]<span class="op">;</span></span>
+<span id="cb6-23"><a href=""></a>    </span>
+<span id="cb6-24"><a href=""></a><span class="co"># datos</span></span>
+<span id="cb6-25"><a href=""></a>data Ejemplo01_compacto2.dat<span class="op">;</span></span>
+<span id="cb6-26"><a href=""></a></span>
+<span id="cb6-27"><a href=""></a><span class="co"># opciones del solver</span></span>
+<span id="cb6-28"><a href=""></a>option solver highs<span class="op">;</span></span>
+<span id="cb6-29"><a href=""></a>expand<span class="op">;</span></span>
+<span id="cb6-30"><a href=""></a>solve<span class="op">;</span></span>
+<span id="cb6-31"><a href=""></a>display Ganancias, X, Fichas_maximas.body, Fichas_maximas.slack<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
 <section id="archivo-dat-alternativa---notación-compacta" class="title-slide slide level3 center">
 <h3>Archivo dat (Alternativa) - Notación compacta</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href=""></a><span class="co"># sets</span></span>
+<span id="cb7-2"><a href=""></a><span class="bu">set</span> Productos <span class="op">:=</span> Mesas Sillas<span class="op">;</span></span>
+<span id="cb7-3"><a href=""></a><span class="bu">set</span> Tipo_ficha <span class="op">:=</span> <span class="dv">4</span><span class="er">P</span> <span class="dv">8</span><span class="er">P</span><span class="op">;</span></span>
+<span id="cb7-4"><a href=""></a></span>
+<span id="cb7-5"><a href=""></a><span class="co"># parametros</span></span>
+<span id="cb7-6"><a href=""></a>param Utilidad<span class="op">:=</span></span>
+<span id="cb7-7"><a href=""></a>Mesas <span class="dv">16</span></span>
+<span id="cb7-8"><a href=""></a>Sillas <span class="dv">13</span><span class="op">;</span></span>
+<span id="cb7-9"><a href=""></a></span>
+<span id="cb7-10"><a href=""></a>param Fichas_req<span class="op">:=</span></span>
+<span id="cb7-11"><a href=""></a><span class="dv">4</span><span class="er">P</span> Mesas <span class="dv">3</span></span>
+<span id="cb7-12"><a href=""></a><span class="dv">4</span><span class="er">P</span> Sillas <span class="dv">2</span></span>
+<span id="cb7-13"><a href=""></a><span class="dv">8</span><span class="er">P</span> Mesas <span class="dv">1</span></span>
+<span id="cb7-14"><a href=""></a><span class="dv">8</span><span class="er">P</span> Sillas <span class="dv">2</span></span>
+<span id="cb7-15"><a href=""></a><span class="op">;</span></span>
+<span id="cb7-16"><a href=""></a></span>
+<span id="cb7-17"><a href=""></a>param TF<span class="op">:=</span></span>
+<span id="cb7-18"><a href=""></a><span class="dv">8</span><span class="er">P</span> <span class="dv">17</span> </span>
+<span id="cb7-19"><a href=""></a><span class="dv">4</span><span class="er">P</span> <span class="dv">18</span><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
 

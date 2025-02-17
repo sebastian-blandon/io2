@@ -419,14 +419,61 @@ param TFP:= 18;
 ### Archivo mod - Notación aún más compacta
 
 ```{.python}
+reset; # limpiar las variables, parametros y soluciones previas
+model;
 
+# conjuntos
+set Productos;
+set Tipo_ficha;
+
+# parametros
+param Utilidad{Productos} >0;
+param Fichas_req{Tipo_ficha,Productos} >=0;
+param TF{Tipo_ficha} >=0; # Total de Fichas disponibles
+
+# variables
+var X{Productos} >=0 integer; # Cantidad a fabricar del producto j
+
+# funcion objetivo
+maximize Ganancias:
+	sum{j in Productos} Utilidad[j]*X[j];
+	
+# restricciones
+s.t. Fichas_maximas{i in Tipo_ficha}:
+	sum{j in Productos} Fichas_req[i,j]*X[j] <= TF[i];
+	
+# datos
+data Ejemplo01_compacto2.dat;
+
+# opciones del solver
+option solver highs;
+expand;
+solve;
+display Ganancias, X, Fichas_maximas.body, Fichas_maximas.slack;
 ```
 
 ### Archivo dat (Alternativa) - Notación compacta
 
 ```{.python}
+# sets
+set Productos := Mesas Sillas;
+set Tipo_ficha := 4P 8P;
 
+# parametros
+param Utilidad:=
+Mesas 16
+Sillas 13;
 
+param Fichas_req:=
+4P Mesas 3
+4P Sillas 2
+8P Mesas 1
+8P Sillas 2
+;
+
+param TF:=
+8P 17 
+4P 18;
 ```
 
 ## ¿Qué es la investigación de operaciones?

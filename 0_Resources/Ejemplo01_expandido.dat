@@ -10,7 +10,6 @@ param FG:=
 Mesas 1
 Sillas 2;
 
-
 param TFG:= 17;
 
 param FP:=
