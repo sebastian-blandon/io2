@@ -25,6 +25,28 @@ display: true !important;
 }
 
 
+.reveal {
+  table {
+    font-size: min(1.8vw, 18px) !important; // Ajusta la fuente automáticamente sin exceder 18px
+    width: 100%;
+    table-layout: fixed; // Mantiene el tamaño uniforme de las columnas
+    border-collapse: collapse; // Asegura una apariencia limpia
+  }
+
+  th, td {
+    word-wrap: break-word;
+    text-align: left;
+    padding: 10px; // Espaciado uniforme
+    border: 1px solid #ccc; // Bordes sutiles para mejorar la legibilidad
+  }
+
+  th {
+    background-color: #f4f4f4; // Fondo para los encabezados
+    font-weight: bold;
+  }
+}
+
+
 
 .container{
   display: grid;

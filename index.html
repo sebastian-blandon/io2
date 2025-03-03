@@ -97,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2a5bb6ae957c67a7eee8ee002c257207.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2c6f026458767ac4aa16a2d90837ba2b.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -1218,8 +1218,282 @@ M &amp;= \text{Cantidad de productos}
 <section id="solución-1" class="title-slide slide level2 center">
 <h2>Solución</h2>
 
-
 <img data-src="0_Figures/1_AMPL_Ejemplo2SolCompacto.png" class="r-stretch"></section>
+
+<section id="programación-lineal" class="title-slide slide level2 center">
+<h2>Programación lineal</h2>
+<div class="small-text">
+<p><span class="math display">\[\begin{align*}
+\text{max } f(x)\\
+\\
+\text{s.a:} \\
+x &amp;\in S\\
+\end{align*}
+\]</span></p>
+<p><strong>Donde:</strong></p>
+<div>
+<ul>
+<li><span class="math inline">\(S \subseteq \mathbb{R}^n\)</span>.</li>
+<li><span class="math inline">\(f(x)\)</span> es una función escalar
+llamada función objetivo.</li>
+<li><span class="math inline">\(S\)</span> es el conjunto definido por
+todas las restricciones.</li>
+<li>Un punto <span class="math inline">\(x^{*}\)</span> es solución
+óptima si:</li>
+</ul>
+</div>
+<p><span class="math display">\[
+f(x) \leq f(x^{*}) &lt; \infty \quad \forall \quad x \in S
+\]</span></p>
+</div>
+</section>
+
+<section id="programación-lineal-1" class="title-slide slide level2 center">
+<h2>Programación lineal</h2>
+<div class="small-text">
+<p><span class="math display">\[\begin{align*}
+\text{max } f(x) &amp;= cx\\
+\\
+\text{s.a:} \\
+x &amp;\in S\\
+S &amp;= \{x | \quad Ax = b; \quad x \geq 0\}
+\end{align*}
+\]</span></p>
+<p><strong>Donde:</strong></p>
+<div>
+<ul>
+<li><span class="math inline">\(S \subseteq \mathbb{R}^n\)</span>.</li>
+<li><span class="math inline">\(f(x)\)</span> es una función escalar
+llamada función objetivo.</li>
+<li><span class="math inline">\(S\)</span> es el conjunto definido por
+todas las restricciones.</li>
+<li>Un punto <span class="math inline">\(x^{*}\)</span> es solución
+óptima si:</li>
+</ul>
+</div>
+<p><span class="math display">\[
+f(x) \leq f(x^{*}) &lt; \infty \quad \forall \quad x \in S
+\]</span></p>
+</div>
+</section>
+
+<section id="programación-lineal-entera" class="title-slide slide level2 center">
+<h2>Programación lineal entera</h2>
+<div class="small-text">
+<p><span class="math display">\[\begin{align*}
+\text{max } f(x) &amp;= cx\\
+\\
+\text{s.a:} \\
+x &amp;\in S\\
+S &amp;= \{x | \quad Ax = b; \quad x \geq 0\}
+\end{align*}
+\]</span></p>
+<p><strong>Donde:</strong></p>
+<div>
+<ul>
+<li><span class="math inline">\(S \subseteq \mathbb{Z}^n\)</span>.</li>
+<li><span class="math inline">\(f(x)\)</span> es una función escalar
+llamada función objetivo.</li>
+<li><span class="math inline">\(S\)</span> es el conjunto definido por
+todas las restricciones.</li>
+<li>Un punto <span class="math inline">\(x^{*}\)</span> es solución
+óptima si:</li>
+</ul>
+</div>
+<p><span class="math display">\[
+f(x) \leq f(x^{*}) &lt; \infty \quad \forall \quad x \in S
+\]</span></p>
+</div>
+</section>
+
+<section id="programación-lineal-entera-1" class="title-slide slide level2 center">
+<h2>Programación lineal entera</h2>
+<div>
+<ul>
+<li>Programación Lineal Entera (ILP)</li>
+<li>Programación Lineal Entera Pura (PIP)</li>
+<li>Programación Lineal Entera Binaria (BILP)</li>
+<li>Programación Lineal Entera Mixta (MILP)</li>
+</ul>
+</div>
+</section>
+<section id="algunos-tipos-de-problemas" class="title-slide slide level3 center">
+<h3>Algunos tipos de problemas</h3>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top" data-quarto-postprocess="true" style="font-size: 18px; margin-left: auto; margin-right: auto;">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; background-color: rgba(244, 244, 244, 255) !important;">Problema</th>
+<th data-quarto-table-cell-role="th" style="text-align: left; font-weight: bold; background-color: rgba(244, 244, 244, 255) !important;">Características</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Mezcla (Blending)</td>
+<td style="text-align: left;">Combinación de materias primas para
+optimizar costos/calidad.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Selección
+(Selection)</td>
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Elegir
+el mejor subconjunto de elementos.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Transporte y Distribución</td>
+<td style="text-align: left;">Minimizar costos de envío entre
+nodos.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Asignación
+(Assignment)</td>
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Asignar
+recursos a tareas eficientemente.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scheduling</td>
+<td style="text-align: left;">Planificar tareas con restricciones de
+tiempo.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Flujo
+en Redes</td>
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Optimizar
+el movimiento de bienes o información en una red.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ruteo de Vehículos (VRP)</td>
+<td style="text-align: left;">Determinar rutas óptimas para
+vehículos.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Localización
+(Facility Location)</td>
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Elegir
+la mejor ubicación de instalaciones.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Secuenciación (Job/Flow Shop)</td>
+<td style="text-align: left;">Ordenar la producción para optimizar
+tiempos/costos.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Inventarios</td>
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Optimizar
+niveles de stock y reposición.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Corte y Empaque (Cutting &amp;
+Packing)</td>
+<td style="text-align: left;">Minimizar desperdicio de materiales.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Decisión
+Bajo Incertidumbre</td>
+<td style="text-align: left; background-color: rgba(249, 249, 249, 255) !important;">Considerar
+la incertidumbre en las decisiones.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Simulación</td>
+<td style="text-align: left;">Modelar sistemas para evaluar
+escenarios.</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</section>
+
+<section id="métodos-de-solución" class="title-slide slide level3 center">
+<h3>Métodos de solución</h3>
+<div>
+<ul>
+<li>Gráfico</li>
+<li>Redondeo del problema relajado</li>
+<li>Enumeración completa</li>
+<li>Branch and bound (bifurcación y acotamiento)</li>
+<li>Corte de Gomory</li>
+</ul>
+</div>
+</section>
+
+
+<section id="retomando-el-ejercicio-de-mesas-y-sillas" class="title-slide slide level2 center">
+<h2>Retomando el ejercicio de mesas y sillas…</h2>
+<div class="small-text">
+<p><span class="math display">\[\begin{align*}
+\text{max } Z(X1,X2) &amp;= 16X_{1} + 13X_{2}\\
+\\
+\text{s.a:} \\
+X_{1} + 2X_{2} &amp;\leq 17 ~\text{(Fichas máximas de 8 pines)} \\
+3X_{1} + 2X_{2} &amp;\leq 18  ~\text{(Fichas máximas de 4 pines)} \\
+X_{1}, X_{2} &amp;\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{1} &amp;= \text{Cantidad a fabricar de mesas} \\
+X_{2} &amp;= \text{Cantidad a fabricar de sillas} \\
+\end{align*}
+\]</span></p>
+</div>
+</section>
+<section id="método-gráfico" class="title-slide slide level3 center">
+<h3>Método gráfico</h3>
+
+<img data-src="0_Figures/1_MetodoGrafico.png" class="r-stretch"></section>
+
+<section id="método-de-redondeo" class="title-slide slide level3 center scrollable">
+<h3>Método de redondeo</h3>
+<ol type="1">
+<li class="fragment">Tomar la solución relajada.</li>
+<li class="fragment">Redondear la solución relajada.</li>
+</ol>
+<ul>
+<li class="fragment">Redondear hacia los enteros inmediatos inferiores
+(maximización).</li>
+<li class="fragment">Redondear hacia los enteros inmediatos superiores
+(minimización).</li>
+</ul>
+</section>
+
+<section id="método-de-enumeración-completa" class="title-slide slide level3 center">
+<h3>Método de enumeración completa</h3>
+
+</section>
+
+<section id="método-de-branch-and-bound" class="title-slide slide level3 center">
+<h3>Método de Branch and bound</h3>
+
+</section>
+
+<section id="método-de-corte-de-gomory" class="title-slide slide level3 center">
+<h3>Método de corte de Gomory</h3>
+
+</section>
+
+
+<section id="tipos-de-restricciones-en-el-modelamiento-algebraico" class="title-slide slide level2 center">
+<h2>Tipos de restricciones en el modelamiento algebraico</h2>
+<div class="r-fit-text">
+<div>
+<ul>
+<li>Lógicas (Si A, entonces B).</li>
+<li>Disyuntivas (A o B, pero no ambas).</li>
+<li>Dependencia (Si una variable está activa, otra tiene un rango
+definido).</li>
+<li>Capacidad condicionada (Límites en función de variables
+binarias).</li>
+<li>Costos fijos (Costos activados solo cuando se toman
+decisiones).</li>
+<li>Exclusividad (Solo una opción puede elegirse).</li>
+<li>Secuenciación (Orden en eventos o actividades).</li>
+</ul>
+</div>
+</div>
+
+</section>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

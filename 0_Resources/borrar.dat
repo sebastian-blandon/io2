@@ -1,0 +1,17 @@
+data;
+# ¿Es necesario escribir data cada vez que se hace un archivo .dat? A mi parecer es
+redundante…
+# Conjunto de medios de publicidad
+set MEDIA := TV Magazines;
+
+# Parámetros
+param:
+cost reach talent :=
+TV 20000 1.8 1
+Magazines 10000 1.0 3
+;
+
+param min_tv := 10;
+param budget := 1000000;
+
+param available_talent := 100;

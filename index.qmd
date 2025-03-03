@@ -947,3 +947,192 @@ Empaque 700
 
 
 
+## Programación lineal
+
+::: small-text
+$$\begin{align*}
+\text{max } f(x)\\ 
+\\
+\text{s.a:} \\
+x &\in S\\
+\end{align*}
+$$
+
+**Donde:**
+
+::: nonincremental
+- $S \subseteq \mathbb{R}^n$.
+- $f(x)$ es una función escalar llamada función objetivo.
+- $S$ es el conjunto definido por todas las restricciones.
+- Un punto $x^{*}$ es solución óptima si:
+:::
+
+$$
+f(x) \leq f(x^{*}) < \infty \quad \forall \quad x \in S
+$$
+:::
+
+
+## Programación lineal
+
+::: small-text
+$$\begin{align*}
+\text{max } f(x) &= cx\\ 
+\\
+\text{s.a:} \\
+x &\in S\\
+S &= \{x | \quad Ax = b; \quad x \geq 0\}
+\end{align*}
+$$
+
+**Donde:**
+
+::: nonincremental
+- $S \subseteq \mathbb{R}^n$.
+- $f(x)$ es una función escalar llamada función objetivo.
+- $S$ es el conjunto definido por todas las restricciones.
+- Un punto $x^{*}$ es solución óptima si:
+:::
+
+$$
+f(x) \leq f(x^{*}) < \infty \quad \forall \quad x \in S
+$$
+:::
+
+
+## Programación lineal entera
+
+::: small-text
+$$\begin{align*}
+\text{max } f(x) &= cx\\ 
+\\
+\text{s.a:} \\
+x &\in S\\
+S &= \{x | \quad Ax = b; \quad x \geq 0\}
+\end{align*}
+$$
+
+**Donde:**
+
+::: nonincremental
+- $S \subseteq \mathbb{Z}^n$.
+- $f(x)$ es una función escalar llamada función objetivo.
+- $S$ es el conjunto definido por todas las restricciones.
+- Un punto $x^{*}$ es solución óptima si:
+:::
+
+$$
+f(x) \leq f(x^{*}) < \infty \quad \forall \quad x \in S
+$$
+:::
+
+
+
+## Programación lineal entera
+
+::: nonincremental
+- Programación Lineal Entera (ILP)
+- Programación Lineal Entera Pura (PIP)
+- Programación Lineal Entera Binaria (BILP)
+- Programación Lineal Entera Mixta (MILP)
+:::
+
+
+### Algunos tipos de problemas
+
+```{r}
+library(knitr)
+library(kableExtra)
+
+# Definir los datos de la tabla
+tabla <- data.frame(
+  "Problema" = c("Mezcla (Blending)", "Selección (Selection)", 
+                         "Transporte y Distribución", "Asignación (Assignment)", 
+                         "Scheduling", "Flujo en Redes", "Ruteo de Vehículos (VRP)", 
+                         "Localización (Facility Location)", "Secuenciación (Job/Flow Shop)", 
+                         "Inventarios", "Corte y Empaque (Cutting & Packing)", 
+                         "Decisión Bajo Incertidumbre", "Simulación"),
+  "Características" = c(
+    "Combinación de materias primas para optimizar costos/calidad.",
+    "Elegir el mejor subconjunto de elementos.",
+    "Minimizar costos de envío entre nodos.",
+    "Asignar recursos a tareas eficientemente.",
+    "Planificar tareas con restricciones de tiempo.",
+    "Optimizar el movimiento de bienes o información en una red.",
+    "Determinar rutas óptimas para vehículos.",
+    "Elegir la mejor ubicación de instalaciones.",
+    "Ordenar la producción para optimizar tiempos/costos.",
+    "Optimizar niveles de stock y reposición.",
+    "Minimizar desperdicio de materiales.",
+    "Considerar la incertidumbre en las decisiones.",
+    "Modelar sistemas para evaluar escenarios."
+  )
+)
+
+# Generar la tabla con autoajuste
+kable(tabla, format = "html", align = "l", escape = FALSE) %>%
+  kable_styling(full_width = TRUE, position = "center", font_size = 18) %>% 
+  row_spec(0, bold = TRUE, background = "#f4f4f4") %>%  # Encabezado con color
+  row_spec(seq(2, nrow(tabla), by = 2), background = "#f9f9f9") # Filas pares con color gris claro
+```
+
+
+### Métodos de solución
+
+::: nonincremental
+- Gráfico
+- Redondeo del problema relajado
+- Enumeración completa
+- Branch and bound (bifurcación y acotamiento)
+- Corte de Gomory
+:::
+
+## Retomando el ejercicio de mesas y sillas...
+::: small-text
+$$\begin{align*}
+\text{max } Z(X1,X2) &= 16X_{1} + 13X_{2}\\ 
+\\
+\text{s.a:} \\
+X_{1} + 2X_{2} &\leq 17 ~\text{(Fichas máximas de 8 pines)} \\
+3X_{1} + 2X_{2} &\leq 18  ~\text{(Fichas máximas de 4 pines)} \\
+X_{1}, X_{2} &\geq 0 ~\text{(No negatividad)} \\
+\\
+\text{Donde:} \\
+X_{1} &= \text{Cantidad a fabricar de mesas} \\
+X_{2} &= \text{Cantidad a fabricar de sillas} \\
+\end{align*}
+$$
+:::
+
+### Método gráfico
+![](0_Figures/1_MetodoGrafico.png)
+
+### Método de redondeo
+
+1. Tomar la solución relajada.
+2. Redondear la solución relajada.
+- Redondear hacia los enteros inmediatos inferiores (maximización).
+- Redondear hacia los enteros inmediatos superiores (minimización).
+
+### Método de enumeración completa
+
+
+### Método de Branch and bound
+
+
+### Método de corte de Gomory
+
+
+## Tipos de restricciones en el modelamiento algebraico
+
+::: r-fit-text
+::: nonincremental
+- Lógicas (Si A, entonces B).
+- Disyuntivas (A o B, pero no ambas).
+- Dependencia (Si una variable está activa, otra tiene un rango definido).
+- Capacidad condicionada (Límites en función de variables binarias).
+- Costos fijos (Costos activados solo cuando se toman decisiones).
+- Exclusividad (Solo una opción puede elegirse).
+- Secuenciación (Orden en eventos o actividades).
+:::
+:::
