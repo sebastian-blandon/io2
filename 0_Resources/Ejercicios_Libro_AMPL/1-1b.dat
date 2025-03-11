@@ -1,0 +1,9 @@
+set Medio:= TV Magazine;
+
+param: Alcance Costo personwk:=
+TV 1.8 20000 1
+Magazine 1 10000 3;
+
+param presupuesto_maximo:= 1000000;
+
+param personwk_max:= 100;

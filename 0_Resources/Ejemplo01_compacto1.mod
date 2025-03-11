@@ -12,7 +12,7 @@ param FP{Productos} >=0; # Fichas Pequenas
 param TFP >=0; # Total Fichas Pequeñas
 
 # variables
-var X{Productos} >=0 integer;
+var X{Productos} >=0;
 
 # funcion objetivo
 maximize Ganancia:
