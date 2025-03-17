@@ -6,11 +6,11 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/quarto-contrib/jquery-3.6.3/jquery-3.6.3.min.js"></script>
 <script src="index_files/libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.js" defer="true"></script>
 <link href="index_files/libs/quarto-contrib/code-fullscreen-1.0.0/code-fullscreen.css" rel="stylesheet"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+  <meta name="generator" content="quarto-1.6.42">
 
   <meta name="author" content="Ing. Sebastián Blandón Londoño">
   <title>II8B3 - Investigación de Operaciones II</title>
@@ -97,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-2c6f026458767ac4aa16a2d90837ba2b.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-b1412d90126e3c2f64602aa8983c9a10.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -648,6 +648,26 @@ eficiencia y eficacia en el uso de dichos recursos.</p>
 <p><img data-src="0_Figures/0_MetodologiaModelamiento.png" data-fig-cap="Adaptado de Toro Ocampo (2024)"> Adaptado de Toro Ocampo
 (2024)</p>
 </section>
+
+<section id="tipos-de-restricciones-en-el-modelamiento-algebraico" class="title-slide slide level2 center">
+<h2>Tipos de restricciones en el modelamiento algebraico</h2>
+<div class="r-fit-text">
+<div>
+<ul>
+<li>Lógicas (Si A, entonces B).</li>
+<li>Disyuntivas (A o B, pero no ambas).</li>
+<li>Dependencia (Si una variable está activa, otra tiene un rango
+definido).</li>
+<li>Capacidad condicionada (Límites en función de variables
+binarias).</li>
+<li>Costos fijos (Costos activados solo cuando se toman
+decisiones).</li>
+<li>Exclusividad (Solo una opción puede elegirse).</li>
+<li>Secuenciación (Orden en eventos o actividades).</li>
+</ul>
+</div>
+</div>
+</section>
 <section id="un-ejemplo-básico" class="title-slide slide level3 center">
 <h3>Un ejemplo básico…</h3>
 <div class="r-fit-text">
@@ -1112,7 +1132,7 @@ M &amp;= \text{Cantidad de productos}
 <span id="cb13-10"><a href=""></a>param Utilidad{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Utilidad unitaria por producto</span></span>
 <span id="cb13-11"><a href=""></a>param Penalidad{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Penalidad unitaria por demanda no cubierta</span></span>
 <span id="cb13-12"><a href=""></a>param Demanda{Productos} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Demanda por tipo de producto</span></span>
-<span id="cb13-13"><a href=""></a>param TiempoRequerido{Productos, Areas} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Tiempo requerido por el producto i en el area j</span></span>
+<span id="cb13-13"><a href=""></a>param TiempoProcesamiento{Productos, Areas} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Tiempo requerido por el producto i en el area j</span></span>
 <span id="cb13-14"><a href=""></a>param TiempoDisponible{Areas} <span class="op">&gt;=</span><span class="dv">0</span><span class="op">;</span> <span class="co"># Tiempo disponible  </span></span>
 <span id="cb13-15"><a href=""></a></span>
 <span id="cb13-16"><a href=""></a><span class="co"># Variables</span></span>
@@ -1123,8 +1143,8 @@ M &amp;= \text{Cantidad de productos}
 <span id="cb13-21"><a href=""></a>    <span class="bu">sum</span>{i <span class="kw">in</span> Productos} (Utilidad[i]<span class="op">*</span>X[i] <span class="op">-</span> Penalidad[i]<span class="op">*</span><span class="bu">max</span>(Demanda[i]<span class="op">-</span>X[i], <span class="dv">0</span>))<span class="op">;</span></span>
 <span id="cb13-22"><a href=""></a></span>
 <span id="cb13-23"><a href=""></a><span class="co"># Restricciones</span></span>
-<span id="cb13-24"><a href=""></a>s.t. Tiempo{(i,j) <span class="kw">in</span> {Productos,Areas}}:</span>
-<span id="cb13-25"><a href=""></a>    TiempoRequerido[i,j]<span class="op">*</span>X[i] <span class="op">&lt;=</span> TiempoDisponible[j]</span>
+<span id="cb13-24"><a href=""></a>s.t. Tiempo{j <span class="kw">in</span> {Areas}}:</span>
+<span id="cb13-25"><a href=""></a>    <span class="bu">sum</span>{i <span class="kw">in</span> Productos} TiempoProcesamiento[i,j]<span class="op">*</span>X[i] <span class="op">&lt;=</span> TiempoDisponible[j]</span>
 <span id="cb13-26"><a href=""></a><span class="op">;</span></span>
 <span id="cb13-27"><a href=""></a></span>
 <span id="cb13-28"><a href=""></a>s.t. Demandas{i <span class="kw">in</span> Productos}:</span>
@@ -1210,8 +1230,7 @@ M &amp;= \text{Cantidad de productos}
 <span id="cb15-23"><a href=""></a>Aislamiento <span class="dv">500</span> </span>
 <span id="cb15-24"><a href=""></a>Costura <span class="dv">302</span></span>
 <span id="cb15-25"><a href=""></a>Empaque <span class="dv">700</span></span>
-<span id="cb15-26"><a href=""></a><span class="op">;</span></span>
-<span id="cb15-27"><a href=""></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-26"><a href=""></a><span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 
 
@@ -1473,27 +1492,6 @@ X_{2} &amp;= \text{Cantidad a fabricar de sillas} \\
 
 </section>
 
-
-<section id="tipos-de-restricciones-en-el-modelamiento-algebraico" class="title-slide slide level2 center">
-<h2>Tipos de restricciones en el modelamiento algebraico</h2>
-<div class="r-fit-text">
-<div>
-<ul>
-<li>Lógicas (Si A, entonces B).</li>
-<li>Disyuntivas (A o B, pero no ambas).</li>
-<li>Dependencia (Si una variable está activa, otra tiene un rango
-definido).</li>
-<li>Capacidad condicionada (Límites en función de variables
-binarias).</li>
-<li>Costos fijos (Costos activados solo cuando se toman
-decisiones).</li>
-<li>Exclusividad (Solo una opción puede elegirse).</li>
-<li>Secuenciación (Orden en eventos o actividades).</li>
-</ul>
-</div>
-</div>
-
-</section>
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">

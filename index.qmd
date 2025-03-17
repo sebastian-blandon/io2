@@ -490,6 +490,21 @@ eficacia en el uso de dichos recursos.
 ![](0_Figures/0_MetodologiaModelamiento.png){fig-cap="Adaptado de Toro Ocampo (2024)"}
 Adaptado de Toro Ocampo (2024)
 
+
+## Tipos de restricciones en el modelamiento algebraico
+
+::: r-fit-text
+::: nonincremental
+- Lógicas (Si A, entonces B).
+- Disyuntivas (A o B, pero no ambas).
+- Dependencia (Si una variable está activa, otra tiene un rango definido).
+- Capacidad condicionada (Límites en función de variables binarias).
+- Costos fijos (Costos activados solo cuando se toman decisiones).
+- Exclusividad (Solo una opción puede elegirse).
+- Secuenciación (Orden en eventos o actividades).
+:::
+:::
+
 ### Un ejemplo básico...
 
 ::: r-fit-text
@@ -835,7 +850,7 @@ set Areas; # Conjuntos de areas de produccion
 param Utilidad{Productos} >=0; # Utilidad unitaria por producto
 param Penalidad{Productos} >=0; # Penalidad unitaria por demanda no cubierta
 param Demanda{Productos} >=0; # Demanda por tipo de producto
-param TiempoRequerido{Productos, Areas} >=0; # Tiempo requerido por el producto i en el area j
+param TiempoProcesamiento{Productos, Areas} >=0; # Tiempo requerido por el producto i en el area j
 param TiempoDisponible{Areas} >=0; # Tiempo disponible  
 
 # Variables
@@ -846,8 +861,8 @@ maximize Z:
 	sum{i in Productos} (Utilidad[i]*X[i] - Penalidad[i]*max(Demanda[i]-X[i], 0));
 
 # Restricciones
-s.t. Tiempo{(i,j) in {Productos,Areas}}:
-	TiempoRequerido[i,j]*X[i] <= TiempoDisponible[j]
+s.t. Tiempo{j in {Areas}}:
+	sum{i in Productos} TiempoProcesamiento[i,j]*X[i] <= TiempoDisponible[j]
 ;
 
 s.t. Demandas{i in Productos}:
@@ -937,8 +952,6 @@ Aislamiento 500
 Costura 302
 Empaque 700
 ;
-
-
 ```
 
 
@@ -1123,16 +1136,3 @@ $$
 ### Método de corte de Gomory
 
 
-## Tipos de restricciones en el modelamiento algebraico
-
-::: r-fit-text
-::: nonincremental
-- Lógicas (Si A, entonces B).
-- Disyuntivas (A o B, pero no ambas).
-- Dependencia (Si una variable está activa, otra tiene un rango definido).
-- Capacidad condicionada (Límites en función de variables binarias).
-- Costos fijos (Costos activados solo cuando se toman decisiones).
-- Exclusividad (Solo una opción puede elegirse).
-- Secuenciación (Orden en eventos o actividades).
-:::
-:::

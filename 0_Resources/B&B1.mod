@@ -17,9 +17,9 @@ s.t. R2:
 	12*X1 + 10*X2 <= 60;
 	
 
-
 # Solver
 option solver highs;
 option presolve 0;
 solve;
 display Z, X1, X2;
+
