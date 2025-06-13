@@ -14,6 +14,6 @@ s.t. R2:
 	3*X1+2*X2 <= 18; # Max fichas de 4 pines
 	
 # solver
-option solver highs;
+option solver cplex;
 solve;
 display Ganancias, X1, X2;

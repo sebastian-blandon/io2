@@ -22,7 +22,7 @@ s.t. Fichas_maximas{i in Tipo_ficha}:
 	sum{j in Productos} Fichas_req[i,j]*X[j] <= TF[i];
 	
 # datos
-data Ejemplo01_compacto2.dat;
+data 1_AMPL_Ejemplo01_compacto2.dat;
 
 # opciones del solver
 option solver highs;

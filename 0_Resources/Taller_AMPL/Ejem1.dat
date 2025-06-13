@@ -1,0 +1,18 @@
+# PARAMETROS
+param N:= 2; # Cantidad de referencias de botas
+
+param P:=
+1 800
+2 725; # Precio por cada referencia de botas
+
+param M:=
+1 6
+2 5; # Cantidad de materia prima requerida para cada tipo de botas
+
+param T:=
+1 2
+2 2.4; # Cantidad de tiempo requerido por cada tipo de botas
+
+param M_disponible:= 45; # Materia prima disponible
+
+param T_disponible:= 20; 

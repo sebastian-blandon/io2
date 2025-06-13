@@ -1,0 +1,97 @@
+set Act:= Inicio A B C D E F G H I J Fin;
+
+set P:= 
+Inicio A
+Inicio B
+Inicio C
+A D
+B D
+C D
+D E
+E F
+F G
+F H
+F I
+G J
+H J
+I J
+J Fin;
+
+param CN:=
+Inicio 0
+A 5000
+B 500
+C 3000
+D 1000
+E 4500
+F 8000
+G 5000
+H 5000
+I 7000
+J 28000
+Fin 0;
+
+param CA:=
+Inicio 0
+A 10000
+B 500
+C 6000
+D 3500
+E 9500
+F 12000
+G 7400
+H 5000
+I 8000
+J 10000
+Fin 0;
+
+
+param CM:=
+Inicio 0
+A 50
+B 0
+C 250
+D 10
+E 345
+F 500
+G 70
+H 10
+I 5
+J 100
+Fin 0;
+
+
+param TN:=
+Inicio 0
+A 10
+B 5
+C 8
+D 3
+E 7
+F 5
+G 10
+H 2
+I 2
+J 12
+Fin 0;
+
+
+param TA:=
+Inicio 0
+A 5
+B 5
+C 4
+D 1
+E 5
+F 3
+G 7
+H 2
+I 2
+J 10
+Fin 0;
+
+
+
+
+
+

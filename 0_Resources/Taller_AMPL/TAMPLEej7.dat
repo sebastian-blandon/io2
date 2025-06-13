@@ -1,0 +1,30 @@
+set Producto:= Cal Grava;
+set Bodega:= C1 C2 C3 G1 G2 G3 G4;
+
+param: C Disp:=
+Cal C1 220 1500
+Cal C2 180 1000
+Cal C3 185 800
+Grava G1 250 6500
+Grava G2 175 5800
+Grava G3 150 5000
+Grava G4 100 10000;
+
+param Dem:=
+Cal 2000
+Grava 8000;
+
+param I:=
+Cal C1 0.13
+Cal C2 0.18
+Cal C3 0.25;
+
+param: M14 F:=
+Grava G1 0.55 0.08
+Grava G2 0.52 0.11
+Grava G3 0.50 0.12
+Grava G4 0.40 0.13;
+
+param I_max:= 0.20;
+param F_max:= 0.10;
+param M14_max:= 0.50;

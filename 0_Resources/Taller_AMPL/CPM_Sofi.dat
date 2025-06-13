@@ -1,0 +1,59 @@
+set Tareas:= INICIO A B C D E F G H I J K L M N O FIN;
+
+set Precedencias:=
+INICIO A
+A B
+B C
+C D
+C E
+C F
+D G
+E H
+G H
+F I
+H J
+H K
+D L
+I L
+J M
+K M
+L N
+N O
+M FIN
+O FIN;
+
+param:
+	TN	CN	TA	CA	CH:=
+A	3	4	3	4	0
+B	4	5	4	5	0
+C	5	6	3	9	1.5
+D	6	7.5	4	10	1.25
+E	4	5.3	3	7	1.7
+F	5	6.2	4	7.8	1.6
+G	5	6.1	3	9	1.45
+H	5	6.5	3	9.5	1.5
+I	4	5.6	3	7	1.4
+J	4	5.4	3	6.9	1.5
+K	8	12	5	18	2
+L	4	6	4	6	0
+M	5	6.5	4	7.8	1.3
+N	5	7.2	5	7.2	0
+O	4	5.8	3	7	1.2;
+
+fix Y['A']:=1;
+fix Y['B']:=1;
+fix Y['C']:=1;
+fix Y['D']:=1;
+fix Y['E']:=1;
+fix Y['F']:=1;
+fix Y['G']:=1;
+fix Y['H']:=1;
+fix Y['I']:=1;
+fix Y['J']:=1;
+fix Y['K']:=1;
+fix Y['L']:=1;
+fix Y['M']:=1;
+fix Y['N']:=1;
+fix Y['O']:=1;
+
+

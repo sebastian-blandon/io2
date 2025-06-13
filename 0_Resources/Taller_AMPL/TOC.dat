@@ -1,0 +1,19 @@
+set Jobs:= A B C;
+set Machines:= M1 M2;
+
+param: Utilidad D:=
+A 40 70
+B 30 80
+C 35 60;
+
+param P:=
+A M1 15
+A M2 14
+B M1 16
+B M2 11
+C M1 12
+C M2 9;
+
+param A:=
+M1 2400
+M2 2400;

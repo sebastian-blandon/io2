@@ -1,0 +1,26 @@
+set Nodos:= A B M N O P Q R;
+
+param: H C:=
+A M 1 310
+A N 1 280
+A O 1 260
+B M 1 270
+B O 1 285
+M P 1 310
+M Q 1 320
+N Q 1 335
+N R 1 350
+O P 1 300
+O R 1 340;
+
+param: F Nod Cap:=
+A 1 0 2500
+B 1 0 2000;
+
+param Dem:=
+M 700
+N 650
+O 550
+P 6
+Q 750
+R 920;

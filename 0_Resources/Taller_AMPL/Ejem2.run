@@ -1,0 +1,11 @@
+reset;
+
+model Ejem2.mod;
+data Ejem2.dat;
+
+
+expand; # Muestra la notacion expandida del problema, es util para verificar que lo planteado en AMPL corresponda al modelo planteado a mano
+option show_stats 1; # Muestra estadisticas del problema, como la cantidad de variables y restricciones
+option omit_zero_rows 1; # No muestra las filas cuyo valor sea 0
+solve;
+display Utilidad, X;

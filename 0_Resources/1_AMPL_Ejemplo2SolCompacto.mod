@@ -27,7 +27,7 @@ s.t. Demandas {i in Productos}:
 	X[i] <= Demanda[i];
 	
 # datos
-data Fabrica.dat;
+data 1_AMPL_Ejemplo2SolCompacto.dat;
 
 # opciones del solver
 expand;
