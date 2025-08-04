@@ -1,7 +1,0 @@
-reset;
-
-model Ejem1.mod;
-data Ejem1.dat;
-
-solve;
-display Ingresos, X;

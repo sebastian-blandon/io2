@@ -1,7 +1,0 @@
-set Medio:= TV Magazine;
-
-param: Alcance Costo:=
-TV 1.8 20000
-Magazine 1 10000;
-
-param presupuesto_maximo:= 1000000;

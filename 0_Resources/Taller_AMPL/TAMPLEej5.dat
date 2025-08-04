@@ -1,8 +1,0 @@
-set Albaniles:= MB, R, P;
-
-param Lad_Req:= 3200;
-
-param: Cap S Q_Max:=
-MB 400 350 4
-R 300 280 6
-P 250 200 8;
