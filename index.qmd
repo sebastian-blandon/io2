@@ -22,7 +22,7 @@ format:
     logo: logo_utp.png
     footer: "Investigación de Operaciones II | Facultad de Ciencias Empresariales"
     menu:
-      numbers: false
+      numbers: true
     slide-level: 4
     show-slide-number: speaker
     touch: true
@@ -93,36 +93,30 @@ library(kableExtra)
 ## Evaluación
 
 ::: columns
-::: {.column width="25%"}
+::: {.column width="33%"}
 **Módulo I (30%)**
 
-\- Evaluación continua (15%)
+\- Evaluación continua (30%)
 
-\- Parcial I (15%)
+\- Parcial I (70%)
 :::
 
-::: {.column width="25%"}
-**Módulo II (20%)**
+::: {.column width="33%"}
+**Módulo II (25%)**
 
-\- Evaluación continua (10%)
+\- Evaluación continua (30%)
 
-\- Parcial II (10%)
+\- Parcial II (70%)
 :::
 
-::: {.column width="25%"}
-**Módulo III (20%)**
+::: {.column width="34%"}
+**Módulo III (45%)**
 
-\- Evaluación continua (10%)
+\- Evaluación continua (20%)
 
-\- Parcial III (10%)
-:::
+\- Parcial III (30%)
 
-::: {.column width="25%"}
-**Módulo IV (30%)**
-
-\- Evaluación continua (10%)
-
-\- Parcial final (20%)
+\- Proyecto final (50%)
 :::
 :::
 
@@ -181,26 +175,29 @@ consultado directa o abiertamente.
 
 ## Repaso de modelamiento matemático y optimización con AMPL
 
-<img src="0_Figures/0_Mesas_Sillas.png" style="max-height: 60vh; width: auto; display: block; margin: auto;">
+<img src="0_Figures/0_Mesas_Sillas.png" style="max-height: 42vh; width: auto; display: block; margin: auto;">
 Adaptado de GEIO
 
 ## Modelos mesas y sillas
 ### Notación expandida
 
-::: r-stretch
-$$\begin{align*}
-\text{max } Z(X1,X2) &= 16X_{1} + 13X_{2}\\ 
+::: small-text
+
+$$
+\begin{align*}
+\text{max } Z(X_1,X_2) &= 16X_{1} + 13X_{2}\\ 
 \\
 \text{s.a:} \\
-X_{1} + 2X_{2} &\leq 17 ~\text{(Fichas máximas de 8 pines)} \\
-3X_{1} + 2X_{2} &\leq 18  ~\text{(Fichas máximas de 4 pines)} \\
-X_{1}, X_{2} &\geq 0 ~\text{(No negatividad)} \\
+X_{1} + 2X_{2} &\leq 17 \quad \text{(Fichas máximas de 8 pines)} \\
+3X_{1} + 2X_{2} &\leq 18  \quad \text{(Fichas máximas de 4 pines)} \\
+X_{1}, X_{2} &\geq 0 \quad \text{(No negatividad)} \\
 \\
 \text{Donde:} \\
 X_{1} &= \text{Cantidad a fabricar de mesas} \\
 X_{2} &= \text{Cantidad a fabricar de sillas} \\
 \end{align*}
 $$
+
 :::
 
 
@@ -261,15 +258,8 @@ $$
 
 ## Software de optimización
 
-::: columns
-::: {.column width=50%}
-![](0_Figures/0_OptimizationSoftware1.png)
-:::
+![](0_Figures/0_OptimizationSoftware.png)
 
-::: {.column width=50%}
-![](0_Figures/0_OptimizationSoftware2.png)
-:::
-:::
 
 
 ## Elementos de AMPL en la notación expandida
